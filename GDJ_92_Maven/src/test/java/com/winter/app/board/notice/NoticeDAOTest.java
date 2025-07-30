@@ -12,18 +12,18 @@ class NoticeDAOTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 
-//	@Test
-//	void insertTest() throws Exception {
-//		NoticeVO noticeVO = new NoticeVO();
-//		noticeVO.setBoardTitle("title3");
-//		noticeVO.setBoardContents("contents3");
-//		noticeVO.setBoardWriter("writer3");
-//		int result = noticeDAO.insert(noticeVO);
-//		
-//		// 단정문
-//		assertEquals(0, result);
-//		
-//	}
+	@Test
+	void insertTest() throws Exception {
+		NoticeVO noticeVO = new NoticeVO();
+		noticeVO.setBoardTitle("title3");
+		noticeVO.setBoardContents("contents3");
+		noticeVO.setBoardWriter("writer3");
+		int result = noticeDAO.insert(noticeVO);
+		
+		// 단정문
+		assertEquals(1, result);
+		
+	}
 	
 	@Test
 	void updateTest() throws Exception {
