@@ -18,7 +18,22 @@ public class NoticeController {
 		noticeVO.setBoardTitle("title");
 		noticeVO.setBoardContents("contents");
 		noticeVO.setBoardWriter("writer");
-		int result = NoticeDAO.insert(noticeVO);
+		int result = noticeDAO.insert(noticeVO);
+	}
+	
+	@GetMapping("update")
+	public void update() throws Exception {
+		NoticeVO noticeVO = new NoticeVO();
+		noticeVO.setBoardTitle("title");
+		noticeVO.setBoardContents("contents");
+		noticeVO.setBoardWriter("writer");
+		int result = noticeDAO.update(noticeVO);
+	}
+	
+	@GetMapping("delete")
+	public void delete() throws Exception {
+
+		int result = noticeDAO.delete();
 	}
 
 }
