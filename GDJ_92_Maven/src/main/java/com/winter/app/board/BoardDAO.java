@@ -6,6 +6,7 @@ import java.util.List;
 public interface BoardDAO {
 	
 	// list
+	// <BoardVO>: 그 리스트 안에 BoardVO 타입 객체만 들어간다
 	public List<BoardVO> list() throws Exception;
 	
 	// insert

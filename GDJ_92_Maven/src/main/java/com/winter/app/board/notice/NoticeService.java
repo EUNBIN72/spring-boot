@@ -16,6 +16,7 @@ public class NoticeService implements BoardService{
 
 	@Override
 	public List<BoardVO> list() throws Exception {
+		// DAO 계층한테 "게시글 목록을 가져와 달라"고 요청함
 		return noticeDAO.list();
 	}
 	
