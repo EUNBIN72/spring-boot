@@ -9,6 +9,8 @@
 <c:import url="/WEB-INF/views/include/head_css.jsp"></c:import>
 </head>
 <body id="page-top">
+
+
 	<div id="wrapper">
 		<c:import url="/WEB-INF/views/include/sidebar.jsp"></c:import>
 		
@@ -18,7 +20,30 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					
+					<div class="row col-md-8 offset-md-2">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Num</th>
+									<th>Title</th>
+									<th>Writer</th>
+									<th>Date</th>
+									<th>Hit</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="l" items="${list }">
+									<tr>
+										<td>${l.boardNum }</td>
+										<td><a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a></td>
+										<td>${l.boardWriter }</td>
+										<td>${l.boardDate }</td>
+										<td>${l.boardHit }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 			<!-- End Content -->

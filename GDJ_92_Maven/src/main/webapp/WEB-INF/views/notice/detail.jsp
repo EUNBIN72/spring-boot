@@ -18,7 +18,9 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					
+					<div>
+						${detail.boardContents }
+					</div>
 				</div>
 			</div>
 			<!-- End Content -->
