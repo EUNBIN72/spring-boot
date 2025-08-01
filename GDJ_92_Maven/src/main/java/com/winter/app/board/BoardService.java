@@ -10,6 +10,10 @@ public interface BoardService {
 	//detail
     public BoardVO detail(BoardVO boardVO) throws Exception;
 	
+	// insert
+	public int insert(BoardVO boardVO) throws Exception;
 	
-
+	// update
+	public int update(BoardVO boardVO) throws Exception;
+	
 }

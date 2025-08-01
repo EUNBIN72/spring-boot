@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
@@ -39,11 +40,55 @@ public class NoticeController {
 		BoardVO boardVO = noticeService.detail(noticeVO);
 		
 		// 2. 가지고 온 데이터를 보냄(detail 이라는 이름으로 boardVO를 보냄)
-		model.addAttribute("detail", boardVO);
+		model.addAttribute("vo", boardVO);
 		
 		// 3. /WEB-INF/views/notice/detail.jsp 파일로 이동
 		return "notice/detail";
 	}
+	
+	// form 태그로 이동하는 메소드
+	@GetMapping("add")
+	public String insert() throws Exception{
+		return "notice/add";
+	}
+	
+	
+	// 오버로딩 : 같은 이름의 메소드를 여러개 만드는 것
+	@PostMapping("add")
+	public String insert(NoticeVO noticeVO) throws Exception {
+		int result = noticeService.insert(noticeVO);
+		
+		// 데이터를 가지고 리스트로 넘어감 (redirect 써줌)
+		return "redirect:./list"; // /notice/list 로 redirect
+	}
+	
+	// 이동
+	@GetMapping("update")
+	public String update(BoardVO noticeVO, Model model)throws Exception{
+		BoardVO boardVO = noticeService.detail(noticeVO);
+		model.addAttribute("vo", boardVO);
+		
+		return "notice/add";
+	}
+	
+	@PostMapping("update")
+	public String update(NoticeVO noticeVO, Model model) throws Exception {
+		int result = noticeService.update(noticeVO);
+		
+		String msg = "수정 실패";
+		
+		if (result > 0) {
+			msg="수정 성공";
+		}
+		
+		String url = "./detail?boardNum="+noticeVO.getBoardNum();
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result"; //"redirect:./detail?boardNum="+noticeVO.getBoardNum();
+	}
+	
+	
 	
 //	@GetMapping("add")
 //	public void insert() throws Exception {

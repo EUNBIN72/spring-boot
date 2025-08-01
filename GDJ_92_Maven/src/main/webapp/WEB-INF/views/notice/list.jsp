@@ -56,6 +56,14 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
+						<div>
+							<!--  GET 방식(단순 주소 보내기) -->
+							<!-- 디자인 할 클래스를 부트스트랩에서 복사해서 가져옴 -->
+							<!-- a 태그를 버튼처럼 보이게 만들어줌 -->
+							<a href="./add" class="btn btn-outline-primary">글쓰기</a>
+						</div>
+						
 					</div>
 				</div>
 			</div>

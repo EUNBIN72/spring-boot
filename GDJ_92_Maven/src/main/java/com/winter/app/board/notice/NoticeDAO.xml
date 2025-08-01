@@ -19,27 +19,26 @@
  		SELECT * FROM NOTICE WHERE BOARD_NUM=#{boardNum}
  	</select>
  
+ 
  	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
- <insert id="insert" parameterType="NoticeVO">
- 	INSERT INTO NOTICE
- 	(BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT)
- 	VALUES
- 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0)
- </insert>
- 
- <update id="update" parameterType="NoticeVO">
- 	UPDATE NOTICE SET 
- 		BOARD_TITLE = #{boardTitle},
- 		BOARD_CONTENTS = #{boardContents},
- 		BOARD_WRITER = #{boardWriter} 		
- 		<where>BOARD_NUM = 3</where>
- </update>
- 
- <delete id="delete">
- 	DELETE FROM NOTICE
- 	WHERE BOARD_NUM = 3
- 
- </delete>
+	 <insert id="insert" parameterType="NoticeVO">
+	 	INSERT INTO NOTICE
+	 	(BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT)
+	 	VALUES
+	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0)
+	 </insert>
+	 
+	 <update id="update" parameterType="NoticeVO">
+	 	UPDATE NOTICE SET 
+	 		BOARD_TITLE = #{boardTitle},
+	 		BOARD_CONTENTS = #{boardContents}
+	 		WHERE BOARD_NUM = #{boardNum}
+	 </update>
+	 
+	 <delete id="delete">
+	 	DELETE FROM NOTICE
+	 	WHERE BOARD_NUM = 3
+	 </delete>
  
  
  
