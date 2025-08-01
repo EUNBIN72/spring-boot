@@ -18,9 +18,9 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<div>
-						${detail.boardContents }
-					</div>
+						<!-- controller에서 detail이라는 이름으로 보냈기 때문에 detail. 으로 시작 -->
+						<h3>${detail.boardTitle }</h3>
+						<h3>${detail.boardContents }</h3>
 				</div>
 			</div>
 			<!-- End Content -->

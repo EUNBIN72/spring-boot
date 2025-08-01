@@ -13,6 +13,7 @@ public interface BoardDAO {
 	public int insert(BoardVO boardVO) throws Exception;
 	
 	// detail(select)
+	// 접근 지정자 + 리턴타입(필요한 주체에다가 보내줌) + (매개변수)  
 	public BoardVO detail(BoardVO boardVO) throws Exception;
 	
 	// update

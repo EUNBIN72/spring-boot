@@ -13,6 +13,8 @@
  		SELECT * FROM NOTICE ORDER BY BOARD_NUM DESC
  	</select>
  	
+ 	<!-- #{} 안에는 getter에서 get을 빼고 카멜케이스로 작성 -->
+ 	<!-- 결과물을 담아서 이동 = resultType (조회하는 결과가 마다 다르기 때문에) -->
  	<select id="detail" parameterType="NoticeVO" resultType="NoticeVO">
  		SELECT * FROM NOTICE WHERE BOARD_NUM=#{boardNum}
  	</select>

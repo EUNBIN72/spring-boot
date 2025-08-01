@@ -22,6 +22,6 @@ public class NoticeService implements BoardService{
 	
 	@Override
 	public BoardVO detail(BoardVO boardVO) throws Exception{
-		return noticeDAO.detail(boardVO);
+		return noticeDAO.detail(boardVO);  // 받을 애를 보내줌
 	}
 }

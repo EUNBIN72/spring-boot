@@ -18,24 +18,30 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@GetMapping("list")  // “HTTP GET 방식의 요청”을 처리
+	// String 타입인 이유 : JSP와 같은 View 페이지의 경로(논리적 뷰 이름)를 반환
 	public String list(Model model) throws Exception {
-		// Model 객체 : spring 컨트롤러에서 JSP(뷰)로 데이터를 전달할 때 사용
+		// Model 객체 : spring 컨트롤러에서 JSP(뷰)로 데이터를 전달할 때 사용(스프링에서 제공)
 		
-		// 1. 서비스에서 게시글 리스트를 조회
+		// 1. 서비스에서 게시글 리스트를 조회(DB)
 		// "목록"이니까 List<> 사용해서 list에 담아
  		List<BoardVO> list = noticeService.list();
 		
 		// 2. 조회한 데이터를 Model에 담아서 JSP로 전달
 		model.addAttribute("list", list);
 		
-		// 3. /WEB-INF/view/notice/list.jsp 파일로 이동
+		// 3. /WEB-INF/views/notice/list.jsp 파일로 이동
 		return "notice/list";
 	}
 	
 	@GetMapping("detail")
+	// String 타입인 이유 : JSP와 같은 View 페이지의 경로(논리적 뷰 이름)를 반환
 	public String detail(NoticeVO noticeVO, Model model) throws Exception {
-		BoardVO detail = noticeService.detail(noticeVO);
-		model.addAttribute("detail", detail);
+		BoardVO boardVO = noticeService.detail(noticeVO);
+		
+		// 2. 가지고 온 데이터를 보냄(detail 이라는 이름으로 boardVO를 보냄)
+		model.addAttribute("detail", boardVO);
+		
+		// 3. /WEB-INF/views/notice/detail.jsp 파일로 이동
 		return "notice/detail";
 	}
 	
