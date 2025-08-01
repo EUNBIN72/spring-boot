@@ -20,7 +20,7 @@ public interface BoardDAO {
 	public int update(BoardVO boardVO) throws Exception;
 	
 	//delete
-	public int delete() throws Exception;
+	public int delete(BoardVO boardVO) throws Exception;
 	
 	
 	

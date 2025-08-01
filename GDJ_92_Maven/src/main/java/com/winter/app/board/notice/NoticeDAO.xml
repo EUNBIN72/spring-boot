@@ -19,7 +19,6 @@
  		SELECT * FROM NOTICE WHERE BOARD_NUM=#{boardNum}
  	</select>
  
- 
  	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
 	 <insert id="insert" parameterType="NoticeVO">
 	 	INSERT INTO NOTICE
@@ -35,9 +34,9 @@
 	 		WHERE BOARD_NUM = #{boardNum}
 	 </update>
 	 
-	 <delete id="delete">
+	 <delete id="delete" parameterType="NoticeVO">
 	 	DELETE FROM NOTICE
-	 	WHERE BOARD_NUM = 3
+	 	WHERE BOARD_NUM = #{boardNum}
 	 </delete>
  
  

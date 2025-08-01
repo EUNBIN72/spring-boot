@@ -89,6 +89,24 @@ public class NoticeController {
 	}
 	
 	
+	@PostMapping("delete")
+	public String delete(NoticeVO noticeVO, Model model) throws Exception {
+		int result = noticeService.delete(noticeVO);
+		
+		String msg = "삭제 실패";
+		
+		if(result > 0) {
+			msg="삭제 성공";
+		}
+		
+		// 삭제 성공하면 list로 이동
+		String url = "./list";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
+		
+	}
 	
 //	@GetMapping("add")
 //	public void insert() throws Exception {

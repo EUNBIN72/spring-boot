@@ -43,6 +43,7 @@
 						</table>
 						<div>
 							<form id="frm">
+								<!-- boardNum은 안보이게 hidden으로 처리 -->
 								<input type="hidden" name="boardNum" value="${vo.boardNum }">
 							</form>
 							
