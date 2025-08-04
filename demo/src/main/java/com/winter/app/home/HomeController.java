@@ -19,8 +19,8 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		System.out.println("home");
-		robot.getSwordArm().attack();
-		robot.getGunArm().attack();
+//		robot.getSwordArm().attack();
+//		robot.getGunArm().attack();
 		return "index";
 	}
 }

@@ -1,0 +1,3 @@
+등록
+/notice/add : GET/WEB-INF/views/notice/add/jsp
+/notice/add : POST
