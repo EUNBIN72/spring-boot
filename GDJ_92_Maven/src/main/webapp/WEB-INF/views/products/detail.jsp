@@ -22,12 +22,12 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Num</th>
-									<th>Title</th>
-									<th>Content</th>
-									<th>Rate</th>
-									<th>Date</th>
-									<th>Kind</th>
+									<th>상품 번호</th>
+									<th>상품 이름</th>
+									<th>상품 내용</th>
+									<th>상품 이율</th>
+									<th>판매기간</th>
+									<th>상품종류</th>
 								</tr>
 							</thead>
 							<tbody>

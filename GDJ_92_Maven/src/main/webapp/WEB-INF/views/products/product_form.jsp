@@ -23,8 +23,8 @@
 						<form method="post">
 							<input type="hidden" name="productNum" value="${vo.productNum }">						
 							<div class="mb-3">
-							  <label for="title" class="form-label">Title</label>
-							  <input type="text" class="form-control" name="productaTitle" value="${vo.productTitle }">
+							  <label for="name" class="form-label">Title</label>
+							  <input type="text" class="form-control" name="productName" value="${vo.productName }">
 							</div>
 							<div class="mb-3">
 							  <label for="contents" class="form-label">Contents</label>
@@ -34,10 +34,21 @@
 							  <label for="rate" class="form-label">Rate</label>
 							  <input type="text" class="form-control" name="productRate">${vo.productRate }</input>
 							</div>
-
 							<div class="mb-3">
-							  <label for="kind" class="form-label">Kind</label>
-							  <input type="text" class="form-control" name="productKind">${vo.kindName }</input>
+							  <label for="date" class="form-label">Date</label>
+							  <input type="text" class="form-control" name="productDate">${vo.productDate }</input>
+							</div>
+							<div class="mb-3">
+							<fieldset>
+								  <div>
+									<select name="kindNum">
+										<option value="">선택</option>
+										<option value="1">예금</option>
+										<option value="2">적금</option>
+										<option value="3">대출</option>
+									</select>
+								  </div>
+							</fieldset>  
 							</div>
 							
 							<div>

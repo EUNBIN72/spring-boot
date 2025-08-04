@@ -51,7 +51,32 @@ public class ProductController {
 	}
 	
 	@GetMapping("update")
-	public String update() throws Exception{
+	public String update(ProductVO productVO, Model model) throws Exception{
+		ProductVO vo = productService.detail(productVO);
+		model.addAttribute("vo", vo);
+		
 		return "products/product_form";
 	}
+	
+	@PostMapping("update")
+	public String update(ProductVO productVO, Model moddel) throws Exception {
+		int result = productService.update(productVO);
+		
+		String msg = "수정 실패";
+		
+		if(result > 0) {
+			msg = "수정 성공";
+		}
+		
+		String url = "./detail?productNum=" + productVO.getProductNum();
+		model.add
+		
+		return "commons/result";
+		
+		
+	}
+	
+	
+	
+	
 }
