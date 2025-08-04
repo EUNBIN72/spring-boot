@@ -57,7 +57,7 @@ class NoticeDAOTest {
 	  @Test void deleteTest() throws Exception { NoticeVO noticeVO = new
 	  NoticeVO(); noticeVO.setBoardTitle("update_title");
 	  noticeVO.setBoardContents("update_contents");
-	  noticeVO.setBoardWriter("update_writer"); int result = noticeDAO.delete();
+	  noticeVO.setBoardWriter("update_writer"); int result = noticeDAO.delete(noticeVO);
 	  
 	  assertEquals(1, result); }
 	  

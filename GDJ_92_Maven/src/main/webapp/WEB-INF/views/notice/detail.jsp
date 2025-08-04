@@ -33,8 +33,8 @@
 									
 									<!-- ${list }는 
 										NoticeController의 model.addAttribute("list", list);에서 "list"랑 같은거임 -->
-									<!-- list의 각 요소를 반복문이 돌 때마다 l 변수에 담아서 출력할거니까
-										출력해줄 때 l.뭐시기 를 써주면서 출력해야지 -->	
+									<!-- list의 각 요소를 반복문이 돌 때마다 vo 변수에 담아서 출력할거니까
+										출력해줄 때 vo.뭐시기 를 써주면서 출력해야지 -->	
 										<tr>
 											<td>${vo.boardTitle }</a></td>
 											<td>${vo.boardWriter }</td>
