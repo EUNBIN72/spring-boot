@@ -48,6 +48,10 @@
  		WHERE PRODUCT_NUM = #{productNum}
  	</update>
  	
+ 	<delete id="delete" parameterType="ProductVO">
+ 		DELETE FROM PRODUCTS WHERE PRODUCT_NUM = #{productNum}
+ 	</delete>
+ 	
  	
  	
  	

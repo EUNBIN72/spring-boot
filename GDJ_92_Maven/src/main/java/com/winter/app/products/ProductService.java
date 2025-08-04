@@ -30,4 +30,9 @@ public class ProductService {
 	public int update(ProductVO productVO) throws Exception {
 		return productDAO.update(productVO);
 	}
+	
+	// delete
+	public int delete(ProductVO productVO) throws Exception {
+		return productDAO.delete(productVO);
+	}
 }

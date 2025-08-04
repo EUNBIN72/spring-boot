@@ -20,5 +20,7 @@ public interface ProductDAO {
 	// update
 	public int update(ProductVO productVO) throws Exception;
 	 
+	// delete
+	public int delete(ProductVO productVO) throws Exception;
 	
 }

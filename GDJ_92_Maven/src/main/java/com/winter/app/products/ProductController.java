@@ -16,20 +16,31 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	// "HTTP GET 방식의 요청"을 처리
+	// String 타입인 이유 : JSP와 같은 View 페이지의 경로(논리적 뷰 이름)를 반환
 	@GetMapping("list")
+	// Model 객체 :  String 컨트롤러에서 JSP(뷰)로 데이터를 전달할 때 사용(스프링에서 제공)
 	public String list(Model model) throws Exception{
+		
+		// 1. 서비스에서 리스트를 조회(DB)
 		List<ProductVO> list = productService.list();
 		
+		// 2. 조회한 데이터를 Model에 담아서 JSP로 전달
 		model.addAttribute("list", list);
+		
+		// 3. /WEB-INF/views/products/list.jsp 파일로 이동
 		return "products/list";
 		
 	}
 	
 	@GetMapping("detail")
 	public void detail(ProductVO productVO, Model model) throws Exception{
+		
+		// 가지고 온 데이터를 보냄(detail 이라는 이름으로 productVO를 보냄)
 		model.addAttribute("vo", productService.detail(productVO));
 	}
 	
+	// form 태그로 이동하는 메소드
 	@GetMapping("add")
 	public String add() throws Exception{
 		return "products/product_form";
@@ -50,32 +61,47 @@ public class ProductController {
 		return "commons/result"; // /products.list로 redirect
 	}
 	
-	@GetMapping("update")
-	public String update(ProductVO productVO, Model model) throws Exception{
-		ProductVO vo = productService.detail(productVO);
-		model.addAttribute("vo", vo);
-		
-		return "products/product_form";
-	}
+	/*
+	 * @GetMapping("update") public String update(ProductVO productVO, Model model)
+	 * throws Exception{ ProductVO vo = productService.detail(productVO);
+	 * model.addAttribute("vo", vo);
+	 * 
+	 * return "products/product_form"; }
+	 * 
+	 * @PostMapping("update") public String update(ProductVO productVO, Model
+	 * moddel) throws Exception { int result = productService.update(productVO);
+	 * 
+	 * String msg = "수정 실패";
+	 * 
+	 * if(result > 0) { msg = "수정 성공"; }
+	 * 
+	 * String url = "./detail?productNum=" + productVO.getProductNum(); model.add
+	 * 
+	 * return "commons/result";
+	 * 
+	 * 
+	 * }
+	 */
 	
-	@PostMapping("update")
-	public String update(ProductVO productVO, Model moddel) throws Exception {
-		int result = productService.update(productVO);
+	
+	@PostMapping("delete")
+	public String delete(ProductVO productVO, Model model) throws Exception {
+		int result = productService.delete(productVO);
 		
-		String msg = "수정 실패";
+		String msg = "삭제 실패";
 		
 		if(result > 0) {
-			msg = "수정 성공";
+			msg = "삭제 성공";
 		}
 		
-		String url = "./detail?productNum=" + productVO.getProductNum();
-		model.add
+		String url = "./list";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
 		
 		return "commons/result";
 		
 		
 	}
-	
 	
 	
 	
