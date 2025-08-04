@@ -20,8 +20,8 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<!-- 메인 페이지 사이드바에서 BOARD에서 NOTICE를 클릭했을 때 나와야하는 페이지 구성 -->
-					<!-- NOTIVE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
+					<!-- 메인 페이지 사이드바에서 BOARD에서 Notice를 클릭했을 때 나와야하는 페이지 구성 -->
+					<!-- NOTICE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
 					<!-- 그럼 리스트 어떻게 보여줄거야 -->
 					<div class="row col-md-8 offset-md-2">
 					<!-- 테이블 형태로 보여줘야겠지 -> 그럼 테이블 만들어 -->
