@@ -24,7 +24,7 @@
 							<input type="hidden" name="productNum" value="${vo.productNum }">						
 							<div class="mb-3">
 							  <label for="title" class="form-label">Title</label>
-							  <input type="text" class="form-control" name="productTitle" value="${vo.productTitle }">
+							  <input type="text" class="form-control" name="productaTitle" value="${vo.productTitle }">
 							</div>
 							<div class="mb-3">
 							  <label for="contents" class="form-label">Contents</label>
@@ -32,7 +32,11 @@
 							</div>
 							<div class="mb-3">
 							  <label for="rate" class="form-label">Rate</label>
-							  <textarea class="form-control" rows="9" name="productRate">${vo.productRate }</textarea>
+							  <input type="text" class="form-control" name="productRate">${vo.productRate }</input>
+							</div>
+							<div class="mb-3">
+							  <label for="kind" class="form-label">Kind</label>
+							  <input type="text" class="form-control" name="productKind">${vo.kindName }</input>
 							</div>
 							
 							<div>

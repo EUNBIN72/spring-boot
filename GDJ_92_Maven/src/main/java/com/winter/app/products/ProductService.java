@@ -20,4 +20,9 @@ public class ProductService {
 	public ProductVO detail(ProductVO productVO) throws Exception {
 		return productDAO.detail(productVO);
 	}
+	
+	// insert
+	public int insert(ProductVO productVO) throws Exception {
+		return productDAO.insert(productVO);
+	}
 }

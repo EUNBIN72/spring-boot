@@ -29,6 +29,7 @@
 									<th>Content</th>
 									<th>Rate</th>
 									<th>Date</th>
+									<th>Kind</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -39,6 +40,7 @@
 									<td>${l.productContents }</td>
 									<td>${l.productRate }</td>
 									<td>${l.productDate }</td>
+									<td>${l.productKindVO.kindName }</td>
 								</tr>
 							</c:forEach>
 							</tbody>

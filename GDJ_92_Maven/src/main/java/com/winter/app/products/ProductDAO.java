@@ -14,5 +14,9 @@ public interface ProductDAO {
 	//detail
 	public ProductVO detail(ProductVO productVO) throws Exception;
 	
+	// insert
+	public int insert(ProductVO productVO) throws Exception;
+	
+	
 	
 }

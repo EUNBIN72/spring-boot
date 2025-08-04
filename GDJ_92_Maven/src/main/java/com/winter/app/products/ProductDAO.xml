@@ -27,7 +27,21 @@
  	
  	<select id="detail" parameterType="ProductVO" resultMap="detailResult">
  		SELECT * FROM PRODUCTS P INNER JOIN PRODUCTS_KIND K USING(KIND_NUM)
- 		WHERE P.PRODUCT_NUM=#{productNUM}
+ 		WHERE P.PRODUCT_NUM=#{productNum}
  	</select>
+ 	
+ 	<insert id="insert" parameterType="ProductVO">
+ 		INSERT INTO PRODUCTS
+ 		(PRODUCT_NUM, PRODUCT_NAME, PRODUCT_CONTENTS, PRODUCT_RATE, KIND_NUM)
+ 		VALUES
+ 		(NULL, #{productName}, #{productContents}, #{productRate}, #{kindNum})
+ 	</insert>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  
 </mapper>
