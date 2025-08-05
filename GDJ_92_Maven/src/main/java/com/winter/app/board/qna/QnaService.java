@@ -17,7 +17,35 @@ public class QnaService implements BoardService{
 	// list
 	@Override
 	public List<BoardVO> list() throws Exception {
-		return QnaDAO.list();
+		return qnaDAO.list();
 	}
+
+	@Override
+	public BoardVO detail(BoardVO boardVO) throws Exception {
+		return qnaDAO.detail(boardVO);
+	}
+
+	@Override
+	public int insert(BoardVO boardVO) throws Exception {
+		int result = qnaDAO.insert(boardVO);
+		// ref 값을 update 하는 쿼리를 만들어줘야 됨
+		result = qnaDAO.refUpdate(boardVO);
+		return result;
+	}
+	
+
+	@Override
+	public int update(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(BoardVO boardVO) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }

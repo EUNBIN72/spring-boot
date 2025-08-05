@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.winter.app.board.BoardVO;
 
 @Controller
-@RequestMapping(value="/notice/*")
+@RequestMapping(value="/board/*")
 public class NoticeController {
 	
 	@Autowired
@@ -31,7 +31,7 @@ public class NoticeController {
 		model.addAttribute("list", list);
 		
 		// 3. /WEB-INF/views/notice/list.jsp 파일로 이동
-		return "notice/list";
+		return "board/list";
 	}
 	
 	@GetMapping("detail")
@@ -43,13 +43,13 @@ public class NoticeController {
 		model.addAttribute("vo", boardVO);
 		
 		// 3. /WEB-INF/views/notice/detail.jsp 파일로 이동
-		return "notice/detail";
+		return "board/detail";
 	}
 	
 	// form 태그로 이동하는 메소드
 	@GetMapping("add")
 	public String insert() throws Exception{
-		return "notice/add";
+		return "board/add";
 	}
 	
 	
@@ -68,7 +68,7 @@ public class NoticeController {
 		BoardVO boardVO = noticeService.detail(noticeVO);
 		model.addAttribute("vo", boardVO);
 		
-		return "notice/add";
+		return "board/add";
 	}
 	
 	@PostMapping("update")
