@@ -1,6 +1,7 @@
 package com.winter.app.board.qna;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +18,13 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	@Value("${board.qna}")
+	private String name;
+	
 	// 
 	@ModelAttribute("board")  // model은 key와 value를 가짐
 	public String getBoard() {
-		return "qna";
+		return name;
 	}
 	
 	@GetMapping("list")

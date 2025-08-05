@@ -19,15 +19,15 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<div class="row col-md-8 offset-md-2">	
-										<h2>${board } Detail Page</h2>
+						<h2>${board } Detail Page</h2>
 						<!-- controller에서 detail이라는 이름으로 보냈기 때문에 detail. 으로 시작 -->
 						<table class="table table-striped">
 							<thead>
-									<tr>
-										<th>Title</th>
-										<th>Writer</th>
-									</tr>
-								</thead>
+								<tr>
+									<th>Title</th>
+									<th>Writer</th>
+								</tr>
+							</thead>
 								<tbody>
 									<!-- 각 행에서 반복 출력해야 될 것들 어떻게 출력할래 -->
 									<!-- JSTL(JSP Standard Tag Library)의 반복문 태그 -->
@@ -48,10 +48,11 @@
 								<!-- boardNum은 안보이게 hidden으로 처리 -->
 								<input type="hidden" name="boardNum" value="${vo.boardNum }">
 							</form>
-							
 							<button class="btn btn-outline-primary action" data-kind="u">Update</button>
 							<button class="btn btn-outline-danger action" data-kind="d">Delete</button>
-							<button class="btn btn-outline-success action" data-kind="r">Reply</button>
+							<c:if test="${board ne 'notice' }">
+								<button class="btn btn-outline-success action" data-kind="r">Reply</button>
+							</c:if>
 						</div>
 					</div>
 				</div>
