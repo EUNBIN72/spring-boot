@@ -1,6 +1,5 @@
 package com.winter.app.board.qna;
 
-import java.time.LocalDateTime;
 
 import com.winter.app.board.BoardVO;
 
@@ -24,6 +23,7 @@ public class QnaVO extends BoardVO {
 	// public 해당데이터타입 get변수명() {
 	
 	
+	// null-dafe getter를 추가해서, JSP에서의 NPE(NullPointerExeption)을 방지함
 	// null이면 0으로
 	
 	public Long getBoardRef() {

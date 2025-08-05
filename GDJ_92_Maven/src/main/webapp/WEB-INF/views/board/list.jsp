@@ -24,8 +24,12 @@
 					<!-- NOTICE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
 					<!-- 그럼 리스트 어떻게 보여줄거야 -->
 					<div class="row col-md-8 offset-md-2">
+					
 					<!-- notice 페이지인지 qna 페이지인지 알려주기 -->
+					<!-- notice랑 qna는 보여지는 페이지가 거의 비슷하기 때문에 board로 통일해서 같이 사용해줌 -->
+					<!-- notice 페이지에 들어가면 notice, qna 페이지에 들어가면 qna가 출력되게 -->
 					<h2>${board }</h2>
+					
 					<!-- 테이블 형태로 보여줘야겠지 -> 그럼 테이블 만들어 -->
 						<table class="table table-striped">
 						<!-- 첫 번째 행 만들어서 각 열의 제목들 하드코딩 -->
@@ -47,14 +51,20 @@
 									NoticeController의 model.addAttribute("list", list);에서 "list"랑 같은거임 -->
 								<!-- list의 각 요소를 반복문이 돌 때마다 l 변수에 담아서 출력할거니까
 									출력해줄 때 l.뭐시기 를 써주면서 출력해야지 -->	
+									
 								<c:forEach var="l" items="${list }">
 									<tr>
 										<td>${l.boardNum }</td>
 										<td>
+											<!-- c:catch 를 쓰는 이유는 답글이라는 기능은 notice 페이지에는 없고 qna 페이지에만 존재함 -->
+											<!-- qna list에서만 답글 기능이 나왔으면 좋겠음 -->
+											<!-- c:catch로 감싸주면 에러가 발생해도 JSP가 죽지 않고, 예외를 무시하거나, 에러 변수로 받아 처리할 수 있음 -->
 											<c:catch>
+											<!-- begin이 0부터 시작하는 이유는 depth는 1이상이여야 들여쓰기를 하기 때문 -->
 											<c:forEach begin="1" end="${l.boardDepth }">⇨&nbsp;&nbsp;&nbsp;</c:forEach>
 											</c:catch>
-											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a></td>
+											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a>
+										</td>
 										<td>${l.boardWriter }</td>
 										<td>${l.boardDate }</td>
 										<td>${l.boardHit }</td>

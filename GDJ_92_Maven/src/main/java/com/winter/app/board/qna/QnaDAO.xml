@@ -22,10 +22,12 @@
 	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0, #{boardRef}, #{boardStep}, #{boardDepth})
 	</insert>
 	
+	<!-- 원글 등록 후 ref 세팅 -->
 	<update id="refUpdate" parameterType="QnaVO">
 		UPDATE QNA SET BOARD_REF=#{boardNum} WHERE BOARD_NUM=#{boardNum}
 	</update>
 	
+	<!-- 답글 위치 조정 -->
 	<update id="replyUpdate" parameterType="QnaVO">
 		UPDATE QNA SET BOARD_STEP=BOARD_STEP+1 WHERE BOARD_REF=#{boardRef} AND BOARD_STEP > #{boardStep}
 	</update>

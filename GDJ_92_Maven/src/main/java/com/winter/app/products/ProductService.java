@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
+	// DAO를 주입받아서 DB에 값을 넘김
 	
 	@Autowired
 	private ProductDAO productDAO;

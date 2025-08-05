@@ -2,18 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
+  
  <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
  <mapper namespace="com.winter.app.products.ProductDAO">
+ 
+ 	<!-- resultMap : 쿼리 결과를 VO에 정밀하게 매핑하기 위한 설정 -->
  	<resultMap type="ProductVO" id="detailResult">
+ 	<!-- id : PK(기본키) 매핑 / result : 일반 컬럼 매핑 -->
+ 	
  	<!-- PK Mapping -->
  		<id column="product_num" property="productNum"/>
  	<!-- 그외 나머지 -->	
+ 	<!-- column : DB의 컬럼명(스네이크케이스) / property : VO의 변수 이름(카멜케이스) -->
 		<result column="product_name" property="productName"/>
  		<result column="product_contents" property="productContents"/>
  		<result column="product_rate" property="productRate"/>
  		<result column="product_date" property="productDate"/>
- 	<!-- 1:1 -->
+ 		
+ 	<!-- association : 1:1 관계 매핑에 사용 -->
+ 	<!-- 내부에 또 다른 VO의 필드를 매핑할 수 있음 -->
  		<association property="productKindVO" javaType="ProductKindVO">
  			<id column="kind_num" property="kindNum"/>
  			<result column="kind_name" property="kindName"/>
@@ -22,43 +29,35 @@
  
  	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
  	<select id="list" resultMap="detailResult">
-<!--  	SELECT * FROM PRODUCTS ORDER BY PRODUCT_NUM DESC -->
-		SELECT * FROM PRODUCTS P INNER JOIN PRODUCTS_KIND K USING(KIND_NUM)
- 		ORDER BY PRODUCT_NUM DESC
+		SELECT * FROM PRODUCTS ORDER BY PRODUCT_NUM DESC
  	</select>
  	
- 	<select id="detail" parameterType="ProductVO" resultMap="detailResult">
-  			SELECT *
-			FROM PRODUCTS P
-				 INNER JOIN
-			     PRODUCTS_KIND K
-			     USING(KIND_NUM)
-			WHERE P.PRODUCT_NUM=#{productNum}
-  		</select>
+	<select id="detail" parameterType="ProductVO" resultMap="detailResult">
+		SELECT * FROM PRODUCTS P
+			 INNER JOIN
+		     PRODUCTS_KIND K
+		     USING(KIND_NUM)
+		WHERE P.PRODUCT_NUM=#{productNum}
+	</select>
   		
-  		<insert id="insert" parameterType="ProductVO">
-  			INSERT INTO PRODUCTS
-			VALUES (NULL, #{productName}, #{productContents}, #{productDate}, #{productRate}, #{kindNum})
-  		</insert>
+	<insert id="insert" parameterType="ProductVO">
+		INSERT INTO PRODUCTS
+		VALUES (NULL, #{productName}, #{productContents}, #{productDate}, #{productRate}, #{kindNum})
+	</insert>
   
-   		<update id="update" parameterType="ProductVO">
-  			UPDATE products
-			set 
-				PRODUCT_NAME= #{productName}, 
-				PRODUCT_CONTENTS =#{productContents}, 
-				PRODUCT_DATE=#{productDate}, 
-				PRODUCT_RATE=#{productRate}, 
-				KIND_NUM=#{kindNum}
-			WHERE PRODUCT_NUM=#{productNum}	
-  		</update>
+	<update id="update" parameterType="ProductVO">
+		UPDATE products set 
+			PRODUCT_NAME= #{productName}, 
+			PRODUCT_CONTENTS =#{productContents}, 
+			PRODUCT_DATE=#{productDate}, 
+			PRODUCT_RATE=#{productRate}, 
+			KIND_NUM=#{kindNum}
+		WHERE PRODUCT_NUM=#{productNum}	
+	</update>
   		
-  		<delete id="delete" parameterType="ProductVO">
-  			DELETE FROM PRODUCTS
-  			WHERE PRODUCT_NUM=#{productNum}
-  		</delete>  	
- 	
- 	
- 	
+	<delete id="delete" parameterType="ProductVO">
+		DELETE FROM PRODUCTS WHERE PRODUCT_NUM=#{productNum}
+	</delete>  	
  	
  	
  

@@ -43,6 +43,7 @@
 						</table>
 						<div>
 						<form action="./delete" method="post">
+							<!-- productNum은 hidden으로 가져옴(안보이지만 정보는 가져오는 것) -->
 							<input type="hidden" name="productNum" value="${vo.productNum}">
 							<a class="btn btn-outline-primary" href="./update?productNum=${vo.productNum}">Update</a>
 							<button class="btn btn-outline-danger">Delete</button>

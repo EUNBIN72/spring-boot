@@ -29,27 +29,28 @@ public class QnaService implements BoardService{
 	
 	// reply
 	public int reply(QnaVO qnaVO) throws Exception {
-		// 답글:
+		// 부모글 정보(ref / step / depth) 조회
 		QnaVO parent = (QnaVO)qnaDAO.detail(qnaVO);
-		// REF : 부모의 REF를 자기의 REF로 지정
-		// STEP : 부모의 STEP에 +1한 값을 자기의 STEP으로 지정
-		// DEPTH : 부모의 DEPTH에 +1한 값을 자기의 DEPTH로 지정
-		qnaVO.setBoardRef(parent.getBoardRef());
-		qnaVO.setBoardStep(parent.getBoardStep()+1);
-		qnaVO.setBoardDepth(parent.getBoardDepth()+1);
 		
+		// REF : 부모의 REF를 자기의 REF로 지정
+		// STEP : 부모의 STEP에 +1한 값을 자기의 STEP으로 지정 (바로 아래로)
+		// DEPTH : 부모의 DEPTH에 +1한 값을 자기의 DEPTH로 지정 (한 단계 들여쓰기)
+		qnaVO.setBoardRef(parent.getBoardRef());
+		qnaVO.setBoardStep(parent.getBoardStep() + 1);
+		qnaVO.setBoardDepth(parent.getBoardDepth() + 1);
+		
+		// 같은 ref 그룹 내에, 부모보다 step이 큰 글들의 step을 1씩 증가
 		int result = qnaDAO.replyUpdate(parent);
 		result = qnaDAO.insert(qnaVO);
 		return result;
 	}
 	
 
-
 	// ref insert
 	@Override
 	public int insert(BoardVO boardVO) throws Exception {
 		int result = qnaDAO.insert(boardVO);
-		// ref 값을 update 하는 쿼리를 만들어줘야 됨
+		// ref 값을 update
 		result = qnaDAO.refUpdate(boardVO);
 		return result;
 	}
