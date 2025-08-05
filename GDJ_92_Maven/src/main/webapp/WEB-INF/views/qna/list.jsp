@@ -18,36 +18,32 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<div class="row col-md-8 offset-md-2">	
+					<!-- 메인 페이지 사이드바에서 BOARD에서 Product를 클릭했을 때 나와야하는 페이지 구성 -->
+					<!-- Products(상품)의 목록 리스트가 나와야 하니까 -->
+					<div class="row col-md-8 offset-md-2">					
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>상품 번호</th>
-									<th>상품 이름</th>
-									<th>상품 내용</th>
-									<th>상품 이율</th>
-									<th>판매기간</th>
-									<th>상품종류</th>
+									<th>글 번호</th>
+									<th>글 제목</th>
 								</tr>
 							</thead>
 							<tbody>
+							<c:forEach var="l" items="${list }">
 								<tr>
-									<td>${vo.productNum }</td>
-									<td>${vo.productName }</td>
-									<td>${vo.productContents }</td>
-									<td>${vo.productRate }</td>
-									<td>${vo.productDate }</td>
-									<td>${vo.productKindVO.kindName }</td>
+									<td>${l.boardNum }</td>
+									<td>${l.boardTitle }</td>
 								</tr>
+							</c:forEach>
 							</tbody>
 						</table>
+						
 						<div>
-						<form action="./delete" method="post">
-							<input type="hidden" name="productNum" value="${vo.productNum}">
-							<a class="btn btn-outline-primary" href="./update?productNum=${vo.productNum}">Update</a>
-							<button class="btn btn-outline-danger">Delete</button>
-						</form>
-					</div>
+								<!--  GET 방식(단순 주소 보내기) -->
+								<!-- 디자인 할 클래스를 부트스트랩에서 복사해서 가져옴 -->
+								<!-- a 태그를 버튼처럼 보이게 만들어줌 -->
+								<a href="./add" class="btn btn-outline-primary">답글달기</a>
+						</div>
 					</div>
 				</div>
 			</div>
