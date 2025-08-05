@@ -25,6 +25,10 @@
 	<update id="refUpdate" parameterType="QnaVO">
 		UPDATE QNA SET BOARD_REF=#{boardNum} WHERE BOARD_NUM=#{boardNum}
 	</update>
+	
+	<update id="replyUpdate" parameterType="QnaVO">
+		UPDATE QNA SET BOARD_STEP=BOARD_STEP+1 WHERE BOARD_REF=#{boardNum} AND BOARD_STEP > #{boardStep}
+	</update>
 		
 	
 	

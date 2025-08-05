@@ -25,10 +25,21 @@ public class QnaController {
 	
 	@GetMapping("detail")
 	public String detail(QnaVO qnaVO, Model model) throws Exception {
-		BoardVO boardVO = qnaService.detail(qnaVO);
-		model.addAttribute("vo", boardVO);
-		return "board/detail";
+		model.addAttribute("vo", qnaService.detail(qnaVO));
 		
+		return "board/detail";
+	}
+	
+	@GetMapping("reply")
+	public String relpy(QnaVO qnaVO, Model model) throws Exception{
+		model.addAttribute("vo", qnaVO);
+		return "board/add";
+	}
+	
+	@PostMapping("reply")
+	public String relpy(QnaVO qnaVO) throws Exception{
+		int result = qnaService.reply(qnaVO);
+		return "redirect:./list";
 	}
 	
 	@GetMapping("add")
@@ -43,5 +54,14 @@ public class QnaController {
 		return "redirect:./list"; 
 			
 	}
+	
+//	@GetMapping("update")
+//	public String update (BoardVO boardVO, Model model) throws Exception {
+//		BoardVO boardVO = qnaService.detail(boardVO);
+//		model.addAttribute("vo", boardVO);
+//	}
+	
+	
+	
   
 }

@@ -20,11 +20,37 @@ public class QnaService implements BoardService{
 		return qnaDAO.list();
 	}
 
+	// detail
 	@Override
 	public BoardVO detail(BoardVO boardVO) throws Exception {
 		return qnaDAO.detail(boardVO);
 	}
+	
+	
+	// reply
+	public int reply(QnaVO qnaVO) throws Exception {
+		// 답글:
+		QnaVO parent = (QnaVO)qnaDAO.detail(qnaVO);
+		// REF : 부모의 REF를 자기의 REF로 지정
+		// STEP : 부모의 STEP에 +1한 값을 자기의 STEP으로 지정
+		// DEPTH : 부모의 DEPTH에 +1한 값을 자기의 DEPTH로 지정
+		qnaVO.setBoardRef(parent.getBoardRef());
+		qnaVO.setBoardStep(parent.getBoardStep()+1);
+		qnaVO.setBoardDepth(parent.getBoardDepth()+1);
+		
+		int result = qnaDAO.replyUpdate(parent);
+		return result;
+	}
+	
+	//reply insert
+	public int insert(QnaVO qnaVO) throws Exception {
+		int result = qnaDAO.insert(qnaVO);
+		result = qnaDAO.replyUpdate(qnaVO);
+		return result;
+		
+	}
 
+	// ref insert
 	@Override
 	public int insert(BoardVO boardVO) throws Exception {
 		int result = qnaDAO.insert(boardVO);
@@ -36,7 +62,7 @@ public class QnaService implements BoardService{
 
 	@Override
 	public int update(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
