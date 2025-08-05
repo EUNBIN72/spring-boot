@@ -24,6 +24,8 @@
 					<!-- NOTICE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
 					<!-- 그럼 리스트 어떻게 보여줄거야 -->
 					<div class="row col-md-8 offset-md-2">
+					<!-- notice 페이지인지 qna 페이지인지 알려주기 -->
+					<h2>${board }</h2>
 					<!-- 테이블 형태로 보여줘야겠지 -> 그럼 테이블 만들어 -->
 						<table class="table table-striped">
 						<!-- 첫 번째 행 만들어서 각 열의 제목들 하드코딩 -->
@@ -48,7 +50,11 @@
 								<c:forEach var="l" items="${list }">
 									<tr>
 										<td>${l.boardNum }</td>
-										<td><a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a></td>
+										<td>
+											<c:catch>
+											<c:forEach begin="1" end="${l.boardDepth }">⇨&nbsp;&nbsp;&nbsp;</c:forEach>
+											</c:catch>
+											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a></td>
 										<td>${l.boardWriter }</td>
 										<td>${l.boardDate }</td>
 										<td>${l.boardHit }</td>

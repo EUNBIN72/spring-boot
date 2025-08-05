@@ -23,6 +23,9 @@ public class QnaVO extends BoardVO {
 	// getter
 	// public 해당데이터타입 get변수명() {
 	
+	
+	// null이면 0으로
+	
 	public Long getBoardRef() {
 		if (this.boardRef == null) {
 			this.boardRef = 0L;

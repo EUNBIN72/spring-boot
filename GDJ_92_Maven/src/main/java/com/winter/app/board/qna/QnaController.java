@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +16,12 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qnaService;
+	
+	// 
+	@ModelAttribute("board")  // model은 key와 value를 가짐
+	public String getBoard() {
+		return "qna";
+	}
 	
 	@GetMapping("list")
 	public String list (Model model) throws Exception {

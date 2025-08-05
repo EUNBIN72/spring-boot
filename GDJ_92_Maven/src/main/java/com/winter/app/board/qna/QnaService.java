@@ -39,16 +39,11 @@ public class QnaService implements BoardService{
 		qnaVO.setBoardDepth(parent.getBoardDepth()+1);
 		
 		int result = qnaDAO.replyUpdate(parent);
+		result = qnaDAO.insert(qnaVO);
 		return result;
 	}
 	
-	//reply insert
-	public int insert(QnaVO qnaVO) throws Exception {
-		int result = qnaDAO.insert(qnaVO);
-		result = qnaDAO.replyUpdate(qnaVO);
-		return result;
-		
-	}
+
 
 	// ref insert
 	@Override
