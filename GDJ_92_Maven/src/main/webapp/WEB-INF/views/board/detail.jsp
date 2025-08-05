@@ -18,6 +18,8 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
+					<div class="row col-md-8 offset-md-2">	
+										<h2>${board } Detail Page</h2>
 						<!-- controller에서 detail이라는 이름으로 보냈기 때문에 detail. 으로 시작 -->
 						<table class="table table-striped">
 							<thead>
@@ -49,7 +51,9 @@
 							
 							<button class="btn btn-outline-primary action" data-kind="u">Update</button>
 							<button class="btn btn-outline-danger action" data-kind="d">Delete</button>
+							<button class="btn btn-outline-success action" data-kind="r">Reply</button>
 						</div>
+					</div>
 				</div>
 			</div>
 			<!-- End Content -->

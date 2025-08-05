@@ -22,12 +22,12 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Num</th>
-									<th>Title</th>
-									<th>Content</th>
-									<th>Rate</th>
-									<th>Date</th>
-									<th>Kind</th>
+									<th>상품 번호</th>
+									<th>상품 이름</th>
+									<th>상품 내용</th>
+									<th>상품 이율</th>
+									<th>판매기간</th>
+									<th>상품종류</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -42,14 +42,12 @@
 							</tbody>
 						</table>
 						<div>
-							<form id="frm">
-								<!-- boardNum은 안보이게 hidden으로 처리 -->
-								<input type="hidden" name="boardNum" value="${vo.productNum }">
-							</form>
-							
-							<button class="btn btn-outline-primary action" data-kind="u">Update</button>
-							<button class="btn btn-outline-danger action" data-kind="d">Delete</button>
-						</div>
+						<form action="./delete" method="post">
+							<input type="hidden" name="productNum" value="${vo.productNum}">
+							<a class="btn btn-outline-primary" href="./update?productNum=${vo.productNum}">Update</a>
+							<button class="btn btn-outline-danger">Delete</button>
+						</form>
+					</div>
 					</div>
 				</div>
 			</div>
