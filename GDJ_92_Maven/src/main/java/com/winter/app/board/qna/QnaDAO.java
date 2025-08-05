@@ -6,12 +6,15 @@ import com.winter.app.board.BoardDAO;
 import com.winter.app.board.BoardVO;
 
 @Mapper
-public interface QnaDAO extends BoardDAO{
+public interface QnaDAO extends BoardDAO {
 	
-	// BoardVO를 상속 받는데 BoardVO에는 없고 QnaVO에만 있는 것들은 만들어줘야 됨
+	// BoardDAO를 상속 받으므로 BoardDAO에 정의된 CRUD 메서드는 자동으로 포함됨
+	// QnaVO(답글)에서만 필요한 것들은 별도로 선언해야 함
 	
+	// ref(그룹번호)
 	public int refUpdate(BoardVO boardVO) throws Exception;
 	
+	// 답글 등록시 QnaVO로 등록
 	public int replyUpdate(QnaVO qnaVO) throws Exception;
 
 }

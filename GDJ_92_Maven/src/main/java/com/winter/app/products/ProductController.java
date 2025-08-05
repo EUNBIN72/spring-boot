@@ -21,6 +21,7 @@ public class ProductController {
 	@GetMapping("list")
 	// void이지만 model and view가 리턴됨
 	public void list(Model model) throws Exception{
+		// Model 객체 : spring 컨트롤러에서 JSP(뷰)로 데이터를 전달할 때 사용(스프링에서 제공)
 		
 		// 조회한 데이터를 Model에 담아서 JSP로 전달
 		model.addAttribute("list", productService.list());
@@ -42,15 +43,18 @@ public class ProductController {
 	@PostMapping("add")
 	// 매개변수 : ProductVO - 상품정보를 담고 있는 VO , Model - View로 데이터를 전달할 때 사용하는 Spring의 모델 객체
 	public ModelAndView add(ProductVO productVO, Model model) throws Exception{
-		int result=productService.insert(productVO);
+		int result = productService.insert(productVO);
 		
 		String msg="상품 등록 실패";
-		if(result>0) {
+		if(result > 0) {
 			msg= "상품등록 성공";
 		}
 		
+		// ModelAndView라는 새로운 객체 생성(데이터와 뷰 정보를 담을 컨테이너 역할)
 		ModelAndView mv = new ModelAndView();
+		// msg라는 key로 값 전달(JSP에서 ${msg}로 꺼내 쓸 수 있음
 		mv.addObject("msg", msg);
+		// url이라는 key로 값 전달(JSP에서 ${url}로 꺼내 쓸 수 있음
 		mv.addObject("url", "./list");
 		
 //		model.addAttribute("msg", msg);

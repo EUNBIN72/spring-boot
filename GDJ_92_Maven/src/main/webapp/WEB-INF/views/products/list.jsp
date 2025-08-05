@@ -20,7 +20,7 @@
 					<!-- page contents 내용 -->
 					<!-- 메인 페이지 사이드바에서 BOARD에서 Product를 클릭했을 때 나와야하는 페이지 구성 -->
 					<!-- Products(상품)의 목록 리스트가 나와야 하니까 -->
-					<div class="row col-md-8 offset-md-2">					
+					<div class="row col-md-8 offset-md-2">	
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -36,10 +36,13 @@
 							<c:forEach var="l" items="${list }">
 								<tr>
 									<td>${l.productNum }</td>
+									<!-- 상품이름에는 a태그를 줘서 productNum에 맞는 detail 페이지로 넘어갈 수 있게 해줌 -->
 									<td><a href="./detail?productNum=${l.productNum }">${l.productName }</a></td>
 									<td>${l.productContents }</td>
 									<td>${l.productRate }</td>
 									<td>${l.productDate }</td>
+									<!-- ProductVO에서는 kindNum을 숫자로 매핑했는데 출력할 때는 1:예금 2:적금 3:대출 로 표기가 되어야 되니까 -->
+									<!-- ProductKindVO에서 맵핑해준 kindName을 출력하기 위함 -->
 									<td>${l.productKindVO.kindName }</td>
 								</tr>
 							</c:forEach>

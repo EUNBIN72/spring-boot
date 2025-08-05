@@ -7,8 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ProductDAO {
 	
-	// 여러개라 List<> 타입으로
 	// list
+	// 여러개라 List<> 타입으로
 	public List<ProductVO> list() throws Exception;
 	
 	//detail

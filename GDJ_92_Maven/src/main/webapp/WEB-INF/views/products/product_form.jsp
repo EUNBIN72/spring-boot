@@ -22,6 +22,7 @@
 						<div class="col-md-6">
 							<form  method="post">
 								<input type="hidden" name="productNum" value="${vo.productNum}">
+								<!-- 예금 / 적금 / 대출을 옵션 중 선택으로 지정할 수 있게 -->
 								<div class="mb-3">
 									<label for="kindNum" class="form-label">상품종류</label> 
 									<select class="form-control form-select" name="kindNum">

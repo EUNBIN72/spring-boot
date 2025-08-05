@@ -20,6 +20,7 @@ public class ProductVO {
 	private Double productRate;
 	private Long kindNum;
 	
+	// 연관관계 매핑
 	// 1:1
 	// 단방향
 	private ProductKindVO productKindVO;
