@@ -21,7 +21,7 @@
 					
 					<div class="row justify-content-center">
 						<div class="col-md-6">
-						<form method="post">
+						<form method="post" enctype="multipart/form-data">
 							<input type="hidden" name="boardNum" value="${vo.boardNum }">						
 							<div class="mb-3">
 							  <label for="writer" class="form-label">Writer</label>
@@ -37,6 +37,11 @@
 							</div>
 							
 							<div>
+								
+								<div class="mb-3">
+									<input type="file" name="attaches">
+								</div>
+							
 								<!--  GET 방식(단순 주소 보내기) -->
 								<!-- 디자인 할 클래스를 부트스트랩에서 복사해서 가져옴 -->
 								<!-- a 태그를 버튼처럼 보이게 만들어줌 -->
