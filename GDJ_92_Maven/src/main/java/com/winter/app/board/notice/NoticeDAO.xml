@@ -26,11 +26,19 @@
  	</select>
  
  	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
-	 <insert id="insert" parameterType="NoticeVO">
+	 <insert id="insert" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="boardNum">
 	 	INSERT INTO NOTICE
 	 	(BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT)
 	 	VALUES
 	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0)
+	 </insert>
+	 
+	 <!-- 파일을 저장하는 -->
+	 <insert id="insertFile" parameterType="BoardFileVO">
+	 	INSERT INTO NOTICEFILES
+	 		(FILE_NUM, ORI_NAME, SAVE_NAME, BOARD_NUM)
+	 	VALUES
+	 		(NULL, #{oriName}, #{saveName}, #{boardNum})
 	 </insert>
 	 
 	 <update id="update" parameterType="NoticeVO">

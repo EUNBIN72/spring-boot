@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.board.qna.QnaVO;
 import com.winter.app.commons.Pager;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping(value="/board/*")
+@Slf4j
 public class NoticeController {
 	
 	@Autowired
@@ -68,8 +73,8 @@ public class NoticeController {
 	
 	// 오버로딩 : 같은 이름의 메소드를 여러개 만드는 것
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO) throws Exception {
-		int result = noticeService.insert(noticeVO);
+	public String insert(NoticeVO noticeVO, MultipartFile attaches) throws Exception {
+		int result = noticeService.insert(noticeVO, attaches);
 		
 		// 데이터를 가지고 리스트로 넘어감 (redirect 써줌)
 		return "redirect:./list"; // /notice/list 로 redirect

@@ -16,6 +16,9 @@ public interface BoardDAO {
 	// insert
 	public int insert(BoardVO boardVO) throws Exception;
 	
+	// file insert
+	public int insertFile(BoardFileVO boardFileVO) throws Exception;
+	
 	// detail(select)
 	// 접근 지정자 + 리턴타입(필요한 주체에다가 보내줌) + (매개변수)  
 	public BoardVO detail(BoardVO boardVO) throws Exception;
