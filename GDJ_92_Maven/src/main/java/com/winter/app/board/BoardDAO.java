@@ -17,6 +17,7 @@ public interface BoardDAO {
 	public int insert(BoardVO boardVO) throws Exception;
 	
 	// file insert
+	// 첨부파일 insert
 	public int insertFile(BoardFileVO boardFileVO) throws Exception;
 	
 	// detail(select)

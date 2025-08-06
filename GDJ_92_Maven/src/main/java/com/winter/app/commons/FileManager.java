@@ -20,9 +20,12 @@ public class FileManager {
 			file.mkdirs();
 		}
 		
-		// 2. 저장할 파일명을 생성
+		// 2. 저장할 파일명을 생성(파일명 충돌 방지)
+		// UUID를 파일명에 붙이는 이유 : 
+		// 여러 사용자가 동일한 파일명으로 파일을 올릴 수 있는데 그냥 원본 파일명만 저장하면 나중에 덮어쓰기 되거나 이전 파일이 사라지는 데이터 유실이 발생할 수 있음
+		// 파일 하나하나마다 UUID를 붙여서 고유성 부여해줌(DB나 서버 어디에서든 "이 파일은 딱 하나임")
 		String fileName = UUID.randomUUID().toString();
-		// 확장자 갖다 붙이기
+		// 저장할 파일명에 원본파일명 갖다 붙임 
 		fileName = fileName + "_" + attaches.getOriginalFilename();
 		
 		// 3. 파일을 하드디스크에 저장
@@ -35,6 +38,7 @@ public class FileManager {
 		// 3-2) FileCopyUtils의 copy 메서드 사용
 		FileCopyUtils.copy(attaches.getBytes(), file);
 		
+		// 저장된 파일명을 리턴(DB에 저장할 떄 활용함)
 		return fileName;
 		
 	}

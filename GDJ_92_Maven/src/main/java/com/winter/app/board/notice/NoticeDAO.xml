@@ -6,6 +6,23 @@
  <!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
  <mapper namespace="com.winter.app.board.notice.NoticeDAO">
  
+ 	<resultMap type="NoticeVO" id="detailResult">
+ 		<id column="BOARD_NUM" property="boardNum"/>
+ 		<result column="BOARD_TITLE" property="boardTitle"></result>
+ 		<result column="BOARD_WRITER" property="boardWriter"></result>
+ 		<result column="BOARD_CONTENTS" property="boardContents"></result>
+ 		<result column="BOARD_DATE" property="boardDate"></result>
+ 		<result column="BOARD_HIT" property="boardHit"></result>
+ 		
+		<!-- association : 1:1 관계 매핑에 사용 -->
+		<!-- 내부에 또 다른 VO의 필드를 매핑할 수 있음 -->
+		<association property="boardFileVO" javaType="BoardFileVO">
+			<id column="FILE_NUM" property="fileNum"/>
+			<result column="ORI_NAME" property="oriName"/>
+			<result column="SAVE_NAME" property="saveName"/>
+		</association>
+ 	</resultMap>
+ 
  	<!-- id : 이 SQL문을 list()라는 이름으로 매퍼 인터페이스에서 호출할 수 있게 함 -->
  	<!-- resultType :  SQL 실행 결과가 NoticeVO 객체에 자동으로 매핑
  						(컬럼명과 NoticeVO 필드명이 일치해야 자동 매핑됨) -->
@@ -13,7 +30,7 @@
  		SELECT * FROM NOTICE ORDER BY BOARD_NUM DESC
  		LIMIT #{startIndex}, #{endIndex}
  	</select>
- 	<!-- LIMIT : {앞}부터 {뒤}개 출력 -->
+ 	<!-- LIMIT : {startIndex}부터 {endIndex}개 출력 -->
  	
  	<select id="totalCount" resultType="Long">
  		SELECT COUNT(BOARD_NUM) FROM NOTICE 
@@ -21,8 +38,10 @@
  	
  	<!-- #{} 안에는 getter에서 get을 빼고 카멜케이스로 작성 -->
  	<!-- 결과물을 담아서 이동 = resultType (조회하는 결과가 마다 다르기 때문에) -->
- 	<select id="detail" parameterType="NoticeVO" resultType="NoticeVO">
- 		SELECT * FROM NOTICE WHERE BOARD_NUM=#{boardNum}
+ 	<select id="detail" parameterType="NoticeVO" resultMap="detailResult">
+ 		SELECT * FROM NOTICE 
+ 		LEFT JOIN NOTICEFILES F USING(BOARD_NUM)
+ 		WHERE BOARD_NUM=#{boardNum}
  	</select>
  
  	<!-- ID는 DAO의 메서드명과 동일하게 작성 -->

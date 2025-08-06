@@ -5,9 +5,26 @@
   
 	<!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 	<mapper namespace="com.winter.app.board.qna.QnaDAO">
+	
+	<resultMap type="QnaVO" id="detailResult">
+		<id column="BOARD_NUM" property="boardNum"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARE_WRITER" property="boardWriter"/>
+		<result column="BOARD_CONTENTS" property="boardContents"/>
+		<result column="BOARD_DATE" property="boardDate"/>
+		<result column="BOARD_HIT" property="boardHit"/>
+		
+		<!-- association : 1:1 관계 매핑에 사용 -->
+		<!-- 내부에 또 다른 VO의 필드를 매핑할 수 있음 -->
+		<association property="boardFileVO" javaType="BoardFileVO">
+			<id column="FILE_NUM" property="fileNum"/>
+			<result column="ORI_NAME" property="oriName"/>
+			<result column="SAVE_NAME" property="saveName"/>
+		</association>
+	</resultMap>
 		
 		
-	<select id="list" resultType="QnaVO">
+	<select id="list" resultType="QnaVO" parameterType="Pager">
 		SELECT * FROM QNA ORDER BY BOARD_REF DESC, BOARD_STEP ASC
 		LIMIT #{startIndex}, #{endIndex}
 	</select>
@@ -16,15 +33,25 @@
   		SELECT COUNT(BOARD_NUM) FROM QNA
   	</select>
 	
-	<select id="detail" parameterType="QnaVO" resultType="QnaVO">
-		SELECT * FROM QNA WHERE BOARD_NUM=#{boardNum}
+	<select id="detail" parameterType="QnaVO" resultMap="detailResult">
+		SELECT * FROM NOTICE N LEFT JOIN QNAFILES F
+  			USING(board_num)
+  		WHERE N.BOARD_NUM=#{boardNum}
 	</select>
 	
 	<insert id="insert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="boardNum">
 		INSERT INTO QNA
 	 	(BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT, BOARD_REF, BOARD_STEP, BOARD_DEPTH)
 	 	VALUES
-	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0, #{boardRef}, #{boardStep}, #{boardDepth})
+	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0, 0, 0, 0)
+	</insert>
+	
+	<!-- 파일을 저장하는 -->
+	<insert id="insertFile" parameterType="BoardFileVO">
+		INSERT INTO QNAFILES
+			(FILE_NUM, ORI_NAME, SAVE_NAME, BOARD_NUM)
+	 	VALUES
+	 		(NULL, #{oriName}, #{saveName}, #{boardNum})
 	</insert>
 	
 	<!-- 원글 등록 후 ref 세팅 -->

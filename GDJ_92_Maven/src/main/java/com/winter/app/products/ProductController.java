@@ -17,6 +17,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	
 	// "Http GET 방식의 요청"을 처리
 	@GetMapping("list")
 	// void이지만 model and view가 리턴됨

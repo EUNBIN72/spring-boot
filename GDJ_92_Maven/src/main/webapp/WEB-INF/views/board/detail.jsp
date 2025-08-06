@@ -43,6 +43,13 @@
 										</tr>
 								</tbody>
 						</table>
+						
+						<div>
+							<h2>첨부파일</h2>
+							<h4><a href="/files/${board }/${vo.boardFileVO.saveName}">${vo.boardFileVO.oriName }</a></h4>
+							<h4>${vo.boardFileVO.saveName }</h4>
+						</div>
+						
 						<div>
 							<form id="frm">
 								<!-- boardNum은 안보이게 hidden으로 처리 -->

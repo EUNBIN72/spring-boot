@@ -23,6 +23,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	// application.properties에 정의된 board.qna 값을 읽어서 name 변수에 주입함
 	@Value("${board.qna}")
 	private String name;
 	
@@ -66,8 +67,7 @@ public class QnaController {
 	
 	@PostMapping("add")
 	public String insesrt(QnaVO qnaVO, MultipartFile attaches) throws Exception {
-		log.info("{}", attaches);
-//		int result = qnaService.insert(qnaVO);
+		int result = qnaService.insert(qnaVO, attaches);
 		return "redirect:./list"; 
 			
 	}

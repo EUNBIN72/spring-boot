@@ -3,19 +3,31 @@ package com.winter.app.board.qna;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.FileManager;
 import com.winter.app.commons.Pager;
 
 @Service
 public class QnaService implements BoardService{
 // BoardService 상속받음
 	
-	
 	@Autowired
 	private QnaDAO qnaDAO;
+	
+	@Autowired
+	private FileManager fileManager;
+	
+	@Value("${app.upload}")
+	private String upload;
+	
+	@Value("${board.qna}")
+	private String board;
 	
 	// list
 	@Override
@@ -53,10 +65,23 @@ public class QnaService implements BoardService{
 
 	// ref insert
 	@Override
-	public int insert(BoardVO boardVO) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+		// qna 게시글 등록
 		int result = qnaDAO.insert(boardVO);
-		// ref 값을 update
 		result = qnaDAO.refUpdate(boardVO);
+		
+		// 1. File을 하드디스크에 저장
+		// fileManager.fileSave(저장경로, 업로드파일)
+		// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
+		String filename = fileManager.fileSave(upload+board, attaches);
+		
+		// 저장된 파일의 정보를 DB에 저장
+		BoardFileVO vo = new BoardFileVO();
+		vo.setOriName(attaches.getOriginalFilename());  // 클라이언트가 올린 원본 파일
+		vo.setSaveName(filename);  // 서버에 실제 저장된 파일명
+		vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
+		
+		result = qnaDAO.insertFile(vo);  // 파일 정보를 DB에 저장
 		return result;
 	}
 	
