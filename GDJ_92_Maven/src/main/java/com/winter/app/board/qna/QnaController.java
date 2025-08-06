@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.Pager;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -28,8 +29,8 @@ public class QnaController {
 	}
 	
 	@GetMapping("list")
-	public String list (Model model) throws Exception {
-		model.addAttribute("list", qnaService.list());
+	public String list (Pager pager, Model model) throws Exception {
+		model.addAttribute("list", qnaService.list(pager));
 		
 		return "board/list";
 	}
@@ -66,11 +67,28 @@ public class QnaController {
 			
 	}
 	
-//	@GetMapping("update")
-//	public String update (BoardVO boardVO, Model model) throws Exception {
-//		BoardVO boardVO = qnaService.detail(boardVO);
-//		model.addAttribute("vo", boardVO);
+	@GetMapping("update")
+	public String update (BoardVO boardVO, Model model) throws Exception {
+		BoardVO vo = qnaService.detail(boardVO);
+		model.addAttribute("vo", vo);
+		
+		return "board/add";
+	}
+	
+//	@PostMapping("update")
+//	public String update(QnaVO qnaVO, Model model) throws Exception {
+//		int result = qnaService.update(qnaVO);
+//		
+//		String msg = "수정 실패";
+//		
+//		if(result > 0) {
+//			msg = "수정 성공";
+//		}
+//		
+//		String url = 
 //	}
+	
+	
 	
 	
 	

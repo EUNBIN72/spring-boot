@@ -9,6 +9,7 @@
 		
 	<select id="list" resultType="QnaVO">
 		SELECT * FROM QNA ORDER BY BOARD_REF DESC, BOARD_STEP ASC
+		LIMIT #{startIndex}, #{endIndex}
 	</select>
 	
 	<select id="detail" parameterType="QnaVO" resultType="QnaVO">
@@ -29,8 +30,21 @@
 	
 	<!-- 답글 위치 조정 -->
 	<update id="replyUpdate" parameterType="QnaVO">
-		UPDATE QNA SET BOARD_STEP=BOARD_STEP+1 WHERE BOARD_REF=#{boardRef} AND BOARD_STEP > #{boardStep}
+		UPDATE QNA SET BOARD_STEP = BOARD_STEP + 1 WHERE BOARD_REF = #{boardRef} AND BOARD_STEP > #{boardStep}
 	</update>
+	
+	<update id="update" parameterType="QnaVO">
+		UPDATE QNA SET
+			BOARD_Writer = #{boardWriter},
+			BOARD_TITLE = #{boardTitle},
+			BOARD_CONTENTS = #{boardContents}
+		WHERE BOARD_NUM = #{boardNum}
+	</update>
+	
+	<delete id="delete" parameterType="QnaVO">
+		DELETE FROM QNA
+		WHERE BOARD_NUM = #{boardNum}
+	</delete>
 	
 		
 	

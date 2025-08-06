@@ -74,6 +74,27 @@
 						</table>
 						
 						<div>
+							<nav aria-label="Page navigation example">
+							  <ul class="pagination">
+							    <li class="page-item">
+							      <a class="page-link" href="./list?pageNum=${pager.startNum - 1 }" aria-label="Previous">
+							        <span aria-hidden="true">&laquo;</span>
+							      </a>
+							    </li>
+							    	<c:forEach begin="${pager.startNum }" end="${pager.endNum }" var="i">
+							    		<li class="page-item"><a class="page-link" href="./list?pageNum=${i }">${i }</a></li>
+							    	</c:forEach>
+							    
+							    <li class="page-item">
+							      <a class="page-link" href="./list?pageNum=${pager.endNum + 1 }" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+							    </li>
+							  </ul>
+							</nav>
+						</div>
+						
+						<div>
 							<!--  GET 방식(단순 주소 보내기) -->
 							<!-- 디자인 할 클래스를 부트스트랩에서 복사해서 가져옴 -->
 							<!-- a 태그를 버튼처럼 보이게 만들어줌 -->
