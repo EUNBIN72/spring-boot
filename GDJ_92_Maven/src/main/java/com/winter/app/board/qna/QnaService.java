@@ -7,17 +7,22 @@ import org.springframework.stereotype.Service;
 
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.Pager;
 
 @Service
 public class QnaService implements BoardService{
+// BoardService 상속받음
+	
 	
 	@Autowired
 	private QnaDAO qnaDAO;
 	
 	// list
 	@Override
-	public List<BoardVO> list() throws Exception {
-		return qnaDAO.list();
+	public List<BoardVO> list(Pager pager) throws Exception {
+		Long totalCount = qnaDAO.totalCount();
+		pager.makeNum(totalCount);
+		return qnaDAO.list(pager);
 	}
 
 	// detail
@@ -58,14 +63,12 @@ public class QnaService implements BoardService{
 
 	@Override
 	public int update(BoardVO boardVO) throws Exception {
-		
-		return 0;
+		return qnaDAO.update(boardVO);
 	}
 
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.delete(boardVO);
 	}
 	
 	

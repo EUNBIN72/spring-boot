@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.Pager;
 
 @Controller
 @RequestMapping(value="/board/*")
@@ -31,13 +32,13 @@ public class NoticeController {
 	
 	@GetMapping("list")  // “HTTP GET 방식의 요청”을 처리
 	// String 타입인 이유 : JSP와 같은 View 페이지의 경로(논리적 뷰 이름)를 반환
-	public String list(Model model) throws Exception {
+	public String list(Pager pager, Model model) throws Exception {
 		// Model 객체 : spring 컨트롤러에서 JSP(뷰)로 데이터를 전달할 때 사용(스프링에서 제공)
 		
 		
 		// 1. 서비스에서 게시글 리스트를 조회(DB)
 		// "목록"이니까 List<> 사용해서 list에 담아
- 		List<BoardVO> list = noticeService.list();
+ 		List<BoardVO> list = noticeService.list(pager);
 		
 		// 2. 조회한 데이터를 Model에 담아서 JSP로 전달
 		model.addAttribute("list", list);

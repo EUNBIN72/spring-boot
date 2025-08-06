@@ -1,3 +1,34 @@
+#Notice
+목록
+/notice/list : GET	/WEB-INF/views/notice.list.jsp
+
 등록
-/notice/add : GET/WEB-INF/views/notice/add/jsp
-/notice/add : POST
+/notice/add : GET	/WEB-INF/views/notice/add/jsp
+/notice/add : POST	(확인 메세지 출력 후 목록으로 이동)
+
+상세
+/notice/detail : GET	/WEB-INF/views/notice/detail.jsp
+
+
+
+
+
+
+##############
+#Product
+상품목록
+/products/list	GET		/WEB-INF/views/products/list.jsp
+
+상품상세
+/products/detail	GET		/WEB-INF/views/produts/detail.jsp
+
+상품등록
+/products/add	GET 		/WEB-INF/views/produts/product_form.jsp
+/products/add	POST		(확인 메세지 출력 후 목록으로 이동) 
+
+상품수정
+/products/update		GET		/WEB-INF/views/products/product_form.jsp
+/products/update		POST		(확인 메세지 출력 후 해당 디테일 페이지로 이동)
+
+상품삭제
+/products/delete		POST		(확인 메세지 출력 후 목록으로 이동)

@@ -9,8 +9,14 @@
  	<!-- id : 이 SQL문을 list()라는 이름으로 매퍼 인터페이스에서 호출할 수 있게 함 -->
  	<!-- resultType :  SQL 실행 결과가 NoticeVO 객체에 자동으로 매핑
  						(컬럼명과 NoticeVO 필드명이 일치해야 자동 매핑됨) -->
- 	<select id="list" resultType="NoticeVO">
+ 	<select id="list" resultType="NoticeVO" parameterType="Pager">
  		SELECT * FROM NOTICE ORDER BY BOARD_NUM DESC
+ 		LIMIT #{startIndex}, #{endIndex}
+ 	</select>
+ 	<!-- LIMIT : {앞}부터 {뒤}개 출력 -->
+ 	
+ 	<select id="totalCount" resultType="Long">
+ 		SELECT COUNT(BOARD_NUM) FROM NOTICE 
  	</select>
  	
  	<!-- #{} 안에는 getter에서 get을 빼고 카멜케이스로 작성 -->

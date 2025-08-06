@@ -8,7 +8,9 @@
 </head>
 <body>
 	<script type="text/javascript">
+	// 경고문 출력하고
 		alert('${msg}');
+	// 해당 주소로 이동
 		location.href="${url}";
 	</script>
 </body>
