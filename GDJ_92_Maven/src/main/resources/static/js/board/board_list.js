@@ -8,8 +8,8 @@ const pageNum = document.querySelector("#pageNum");
 
 
 pn.forEach(function(item){
-	item.addEventListener("click", (e)=> {
-		let n = e.target.getAttribute("data-pn");
+	item.addEventListener("click", function() {
+		let n = this.getAttribute("data-pn");
 		pageNum.value=n;
 		searchForm.submit();
 	})

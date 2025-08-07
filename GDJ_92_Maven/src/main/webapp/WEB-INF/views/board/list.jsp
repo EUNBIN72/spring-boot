@@ -92,18 +92,18 @@
 							<nav aria-label="Page navigation example">
 							  <ul class="pagination">
 							    <li class="page-item">
-							      <a class="page-link pn" data-pn="${pager.startNum - 1 }" aria-label="Previous">
+							      <button class="page-link pn" data-pn="${pager.startNum - 1 }" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
-							      </a>
+							      </button>
 							    </li>
 							    	<c:forEach begin="${pager.startNum }" end="${pager.endNum }" var="i">
-							    		<li class="page-item"><a class="page-link pn" data-pn="${i }">${i }</a></li>
+							    		<li class="page-item"><button class="page-link pn" data-pn="${i }">${i }</button></li>
 							    	</c:forEach>
 							    
 							    <li class="page-item">
-							      <a class="page-link pn" data-pn="${pager.endNum + 1 }" aria-label="Next">
+							      <button class="page-link pn" data-pn="${pager.endNum + 1 }" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
-							      </a>
+							      </button>
 							    </li>
 							  </ul>
 							</nav>

@@ -32,6 +32,7 @@ public interface BoardDAO {
 	//delete
 	public int delete(BoardVO boardVO) throws Exception;
 	
-	
+	// 첨부파일까지 같이 지우는 delete
+	public int fileDelete(BoardVO boardVO) throws Exception;
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +39,14 @@
 							
 							<div>
 								
-								<div class="mb-3">
-									<input type="file" name="attaches">
+								<div>
+									<button class="btn btn-outline-primary" type="button" id="add">ADD</button>
+
+								</div>
+
+								<!-- fn:length(vo.boardFileVOs) -->
+								<div id="result" data-file-count="${vo.boardFileVOs.size() }">
+									
 								</div>
 							
 								<!--  GET 방식(단순 주소 보내기) -->
@@ -59,5 +66,6 @@
 		</div>
 	</div>
 		<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
+		<script type="text/javascript" src="/js/board/board_add.js"></script>
 </body>
 </html>

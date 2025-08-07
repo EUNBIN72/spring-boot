@@ -65,23 +65,28 @@ public class QnaService implements BoardService{
 
 	// ref insert
 	@Override
-	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 		// qna 게시글 등록
 		int result = qnaDAO.insert(boardVO);
 		result = qnaDAO.refUpdate(boardVO);
-		
+
+		for(MultipartFile m:attaches) {
+			if (attaches == null || m.isEmpty()) {
+				continue;
+			}
 		// 1. File을 하드디스크에 저장
 		// fileManager.fileSave(저장경로, 업로드파일)
 		// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
-		String filename = fileManager.fileSave(upload+board, attaches);
+		String filename = fileManager.fileSave(upload+board, m);
 		
 		// 저장된 파일의 정보를 DB에 저장
 		BoardFileVO vo = new BoardFileVO();
-		vo.setOriName(attaches.getOriginalFilename());  // 클라이언트가 올린 원본 파일
+		vo.setOriName(m.getOriginalFilename());  // 클라이언트가 올린 원본 파일
 		vo.setSaveName(filename);  // 서버에 실제 저장된 파일명
 		vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
 		
 		result = qnaDAO.insertFile(vo);  // 파일 정보를 DB에 저장
+		}
 		return result;
 	}
 	

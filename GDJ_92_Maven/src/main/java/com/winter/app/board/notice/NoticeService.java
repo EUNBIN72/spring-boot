@@ -44,21 +44,27 @@ public class NoticeService implements BoardService{
 	
 	
 	@Override
-	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 		// 공지 게시글 등록
 		int result = noticeDAO.insert(boardVO);
 		
-		// 1. File을 하드디스크에 저장
-		// fileManager.fileSave(저장경로, 업로드파일)
-		// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
-		String fileName = fileManager.fileSave(upload+board, attaches);
-		
-		// 2. 저장된 파일의 정보를 DB에 저장
-		BoardFileVO vo = new BoardFileVO();
-		vo.setOriName(attaches.getOriginalFilename());  // 클라이언트가 올린 원본 파일
-		vo.setSaveName(fileName);  // 서버에 실제 저장된 파일명
-		vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
-		result = noticeDAO.insertFile(vo);  // 파일 정보를 DB에 저장
+		for(MultipartFile m:attaches) {
+			if (attaches == null || m.isEmpty()) {
+				continue;
+			}
+			// 1. File을 하드디스크에 저장
+			// fileManager.fileSave(저장경로, 업로드파일)
+			// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
+			String fileName = fileManager.fileSave(upload+board, m);
+			
+			// 2. 저장된 파일의 정보를 DB에 저장
+			BoardFileVO vo = new BoardFileVO();
+			vo.setOriName(m.getOriginalFilename());  // 클라이언트가 올린 원본 파일
+			vo.setSaveName(fileName);  // 서버에 실제 저장된 파일명
+			vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
+			result = noticeDAO.insertFile(vo);  // 파일 정보를 DB에 저장
+		}
+	
 		
 		return result; //noticeDAO.insert(boardVO);
 	}
@@ -70,6 +76,13 @@ public class NoticeService implements BoardService{
 	
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
+		boardVO = noticeDAO.detail(boardVO);
+		
+		for(BoardFileVO vo : boardVO.getBoardFileVOs()) {
+			fileManager.fileDelete(upload+board, vo.getSaveName());
+		}
+		int result = noticeDAO.fileDelete(boardVO);
+		
 		return noticeDAO.delete(boardVO);
 	}
 	

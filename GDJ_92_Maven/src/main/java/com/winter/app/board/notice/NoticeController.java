@@ -75,7 +75,7 @@ public class NoticeController {
 	// 오버로딩 : 같은 이름의 메소드를 여러개 만드는 것
 	// MultipartFile : HTTP 요청에서 파일 업로드 데이터를 편리하게 처리하도록 도와줌
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO, MultipartFile attaches) throws Exception {
+	public String insert(NoticeVO noticeVO, MultipartFile [] attaches) throws Exception {
 		int result = noticeService.insert(noticeVO, attaches);
 		
 		// 데이터를 가지고 리스트로 넘어감 (redirect 써줌)
