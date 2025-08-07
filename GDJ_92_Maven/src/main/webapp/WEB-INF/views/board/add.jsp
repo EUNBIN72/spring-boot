@@ -44,6 +44,11 @@
 
 								</div>
 
+								<div>
+									<c:forEach items="${vo.boardFileVOs }" var="f">
+										<button class="deleteFile" type="button">${f.oriName }</button>
+									</c:forEach>
+								</div>
 								<!-- fn:length(vo.boardFileVOs) -->
 								<div id="result" data-file-count="${vo.boardFileVOs.size() }">
 									

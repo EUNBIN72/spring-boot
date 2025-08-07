@@ -1,8 +1,29 @@
 const add = document.getElementById("add");
 const result = document.getElementById("result");
 const del = document.querySelectorAll(".del");
+const deleteFile = document.querySelectorAll(".deleteFile");
+
 
 let count = result.getAttribute("data-file-count");
+
+//-----------------------
+deleteFile.forEach( (item)=>{
+	item.addEventListener("click", function() {
+		// fetch, axios
+		let params = new URLSearchParams();
+		params.append("fileNum", 2)
+		
+		fetch(`./fileDelete?`, {
+			method:"POST",
+			body:params 
+		})	
+		.then(r=>r.json())
+		.then(r=>{
+			console.log(r)
+		})
+	
+	})
+})
 
 add.addEventListener("click", () => {
 
