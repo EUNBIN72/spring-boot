@@ -29,7 +29,7 @@
 		LIMIT #{startIndex}, #{endIndex}
 	</select>
 	
-	<select id="totalCount" resultType="Long">
+	<select id="totalCount" resultType="Long" parameterType="Pager">
   		SELECT COUNT(BOARD_NUM) FROM QNA
   	</select>
 	

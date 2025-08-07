@@ -23,12 +23,27 @@
 					<!-- 메인 페이지 사이드바에서 BOARD에서 Notice를 클릭했을 때 나와야하는 페이지 구성 -->
 					<!-- NOTICE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
 					<!-- 그럼 리스트 어떻게 보여줄거야 -->
-					<div class="row col-md-8 offset-md-2">
+					<div class="col-md-8 offset-md-2">
 					
 					<!-- notice 페이지인지 qna 페이지인지 알려주기 -->
 					<!-- notice랑 qna는 보여지는 페이지가 거의 비슷하기 때문에 board로 통일해서 같이 사용해줌 -->
 					<!-- notice 페이지에 들어가면 notice, qna 페이지에 들어가면 qna가 출력되게 -->
 					<h2>${board }</h2>
+					
+					<div class="row">
+						<form id="searchForm">
+							<div class="input-group mb-3">
+							<input type="hidden" id="pageNum" name="pageNum">
+								<select class="form-control" name="kind" aria-label="Default select example">
+								  <option value="k1" ${pager.kind eq 'k1' ? 'selected' : ''}>Title</option>
+								  <option value="k2" ${pager.kind eq 'k2' ? 'selected' : ''}>Contents</option>
+								  <option value="k3" ${pager.kind eq 'k3' ? 'selected' : ''}>Writer</option>
+								</select>
+								  <input type="text" class="form-control" value="${pager.keyword }" name="keyword" placeholder="Recipient’s username" aria-label="Recipient’s username" aria-describedby="button-addon2">
+								  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+							</div>
+						</form>
+					</div>
 					
 					<!-- 테이블 형태로 보여줘야겠지 -> 그럼 테이블 만들어 -->
 						<table class="table table-striped">
@@ -77,16 +92,16 @@
 							<nav aria-label="Page navigation example">
 							  <ul class="pagination">
 							    <li class="page-item">
-							      <a class="page-link" href="./list?pageNum=${pager.startNum - 1 }" aria-label="Previous">
+							      <a class="page-link pn" data-pn="${pager.startNum - 1 }" aria-label="Previous">
 							        <span aria-hidden="true">&laquo;</span>
 							      </a>
 							    </li>
 							    	<c:forEach begin="${pager.startNum }" end="${pager.endNum }" var="i">
-							    		<li class="page-item"><a class="page-link" href="./list?pageNum=${i }">${i }</a></li>
+							    		<li class="page-item"><a class="page-link pn" data-pn="${i }">${i }</a></li>
 							    	</c:forEach>
 							    
 							    <li class="page-item">
-							      <a class="page-link" href="./list?pageNum=${pager.endNum + 1 }" aria-label="Next">
+							      <a class="page-link pn" data-pn="${pager.endNum + 1 }" aria-label="Next">
 							        <span aria-hidden="true">&raquo;</span>
 							      </a>
 							    </li>
@@ -109,5 +124,6 @@
 		</div>
 	</div>
 		<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
+		<script type="text/javascript" src="/js/board/board_list.js"></script>
 </body>
 </html>

@@ -80,19 +80,40 @@ public class QnaController {
 		return "board/add";
 	}
 	
-//	@PostMapping("update")
-//	public String update(QnaVO qnaVO, Model model) throws Exception {
-//		int result = qnaService.update(qnaVO);
-//		
-//		String msg = "수정 실패";
-//		
-//		if(result > 0) {
-//			msg = "수정 성공";
-//		}
-//		
-//		String url = 
-//	}
+	@PostMapping("update")
+	public String update(QnaVO qnaVO, Model model) throws Exception {
+		int result = qnaService.update(qnaVO);
+		
+		String msg = "수정 실패";
+		
+		if(result > 0) {
+			msg = "수정 성공";
+		}
+		
+		String url = "./detail?boardNum="+qnaVO.getBoardNum(); 
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		// commons의 result로 리턴
+		return "commons/result";
+	}
 	
+	@PostMapping("delete")
+	public String delete(QnaVO qnaVO, Model model) throws Exception {
+		int result = qnaService.delete(qnaVO);
+		
+		String msg = "삭제 실패";
+		
+		if(result > 0) {
+			msg = "삭제 성공";
+		}
+		
+		String url = "./list";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
+	}
 	
 	
 	

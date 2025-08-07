@@ -32,7 +32,7 @@ public class NoticeService implements BoardService{
 	@Override
 	public List<BoardVO> list(Pager pager) throws Exception {
 		// DAO 계층한테 "게시글 목록을 가져와 달라"고 요청함
-		Long totalCount = noticeDAO.totalCount();
+		Long totalCount = noticeDAO.totalCount(pager);
 		pager.makeNum(totalCount);
 		return noticeDAO.list(pager);
 	}

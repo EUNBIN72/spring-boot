@@ -105,6 +105,7 @@ public class NoticeController {
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
+		// commons의 result로 리턴
 		return "commons/result"; //"redirect:./detail?boardNum="+noticeVO.getBoardNum();
 	}
 	
