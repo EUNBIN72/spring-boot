@@ -46,8 +46,10 @@
 						
 						<div>
 							<h2>첨부파일</h2>
-							<h4><a href="/files/${board }/${vo.boardFileVO.saveName}">${vo.boardFileVO.oriName }</a></h4>
-							<h4>${vo.boardFileVO.saveName }</h4>
+							<c:forEach items="${vo.boardFileVOs }" var="f">
+							<h4><a href="/files/${board }/${f.saveName}">${f.oriName }</a></h4>
+							<h4>${f.saveName }</h4>
+							</c:forEach>
 						</div>
 						
 						<div>

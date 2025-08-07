@@ -66,7 +66,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("add")
-	public String insesrt(QnaVO qnaVO, MultipartFile attaches) throws Exception {
+	public String insesrt(QnaVO qnaVO, MultipartFile[] attaches) throws Exception {
 		int result = qnaService.insert(qnaVO, attaches);
 		return "redirect:./list"; 
 			

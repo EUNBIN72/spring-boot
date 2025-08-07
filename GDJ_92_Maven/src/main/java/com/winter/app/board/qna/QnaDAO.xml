@@ -14,13 +14,12 @@
 		<result column="BOARD_DATE" property="boardDate"/>
 		<result column="BOARD_HIT" property="boardHit"/>
 		
-		<!-- association : 1:1 관계 매핑에 사용 -->
-		<!-- 내부에 또 다른 VO의 필드를 매핑할 수 있음 -->
-		<association property="boardFileVO" javaType="BoardFileVO">
+ 		<!-- collection - 1:N 매핑 -->
+		<collection property="boardFileVOs" javaType="java.util.List" ofType="BoardFileVO">
 			<id column="FILE_NUM" property="fileNum"/>
 			<result column="ORI_NAME" property="oriName"/>
 			<result column="SAVE_NAME" property="saveName"/>
-		</association>
+		</collection>
 	</resultMap>
 		
 		
@@ -77,7 +76,10 @@
 		WHERE BOARD_NUM = #{boardNum}
 	</delete>
 	
-		
+	<!-- 첨부파일까지 같이 지우는 쿼리 -->		
+ 	<delete id="fileDelete" parameterType="QnaVO">
+ 		DELETE FROM QNAFILES WHERE BOARD_NUM=#{boardNum}
+ 	</delete>
 	
 	
 	</mapper>
