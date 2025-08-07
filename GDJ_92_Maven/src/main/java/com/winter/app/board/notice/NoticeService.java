@@ -48,6 +48,9 @@ public class NoticeService implements BoardService{
 		// 공지 게시글 등록
 		int result = noticeDAO.insert(boardVO);
 		
+		if (attaches == null || attaches.isEmpty()) {
+			return result;
+		}
 		// 1. File을 하드디스크에 저장
 		// fileManager.fileSave(저장경로, 업로드파일)
 		// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
@@ -59,6 +62,8 @@ public class NoticeService implements BoardService{
 		vo.setSaveName(fileName);  // 서버에 실제 저장된 파일명
 		vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
 		result = noticeDAO.insertFile(vo);  // 파일 정보를 DB에 저장
+		
+	
 		
 		return result; //noticeDAO.insert(boardVO);
 	}
