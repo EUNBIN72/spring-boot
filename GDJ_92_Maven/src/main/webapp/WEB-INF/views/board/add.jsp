@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,8 +44,8 @@
 
 								</div>
 
-
-								<div id="result">
+								<!-- fn:length(vo.boardFileVOs) -->
+								<div id="result" data-file-count="${vo.boardFileVOs.size() }">
 									
 								</div>
 							
