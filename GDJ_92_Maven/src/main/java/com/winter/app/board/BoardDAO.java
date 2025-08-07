@@ -11,12 +11,13 @@ public interface BoardDAO {
 	// <BoardVO>: 그 리스트 안에 BoardVO 타입 객체만 들어간다
 	public List<BoardVO> list(Pager pager) throws Exception;
 	
-	public Long totalCount() throws Exception;
+	public Long totalCount(Pager pager) throws Exception;
 	
 	// insert
 	public int insert(BoardVO boardVO) throws Exception;
 	
 	// file insert
+	// 첨부파일 insert
 	public int insertFile(BoardFileVO boardFileVO) throws Exception;
 	
 	// detail(select)
@@ -25,6 +26,8 @@ public interface BoardDAO {
 	
 	// update
 	public int update(BoardVO boardVO) throws Exception;
+	
+	public int updateFile(BoardFileVO boardFileVO) throws Exception;
 	
 	//delete
 	public int delete(BoardVO boardVO) throws Exception;

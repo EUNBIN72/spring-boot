@@ -23,6 +23,7 @@ public class QnaController {
 	@Autowired
 	private QnaService qnaService;
 	
+	// application.properties에 정의된 board.qna 값을 읽어서 name 변수에 주입함
 	@Value("${board.qna}")
 	private String name;
 	
@@ -66,8 +67,7 @@ public class QnaController {
 	
 	@PostMapping("add")
 	public String insesrt(QnaVO qnaVO, MultipartFile attaches) throws Exception {
-		log.info("{}", attaches);
-//		int result = qnaService.insert(qnaVO);
+		int result = qnaService.insert(qnaVO, attaches);
 		return "redirect:./list"; 
 			
 	}
@@ -80,19 +80,40 @@ public class QnaController {
 		return "board/add";
 	}
 	
-//	@PostMapping("update")
-//	public String update(QnaVO qnaVO, Model model) throws Exception {
-//		int result = qnaService.update(qnaVO);
-//		
-//		String msg = "수정 실패";
-//		
-//		if(result > 0) {
-//			msg = "수정 성공";
-//		}
-//		
-//		String url = 
-//	}
+	@PostMapping("update")
+	public String update(QnaVO qnaVO, Model model) throws Exception {
+		int result = qnaService.update(qnaVO);
+		
+		String msg = "수정 실패";
+		
+		if(result > 0) {
+			msg = "수정 성공";
+		}
+		
+		String url = "./detail?boardNum="+qnaVO.getBoardNum(); 
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		// commons의 result로 리턴
+		return "commons/result";
+	}
 	
+	@PostMapping("delete")
+	public String delete(QnaVO qnaVO, Model model) throws Exception {
+		int result = qnaService.delete(qnaVO);
+		
+		String msg = "삭제 실패";
+		
+		if(result > 0) {
+			msg = "삭제 성공";
+		}
+		
+		String url = "./list";
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
+	}
 	
 	
 	

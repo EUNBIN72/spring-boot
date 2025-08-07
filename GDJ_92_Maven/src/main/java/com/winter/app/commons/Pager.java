@@ -21,8 +21,16 @@ public class Pager {
 	// page 번호
 	private Long pageNum;
 	
+	// 검색 종류
+	private String kind;
+	
+	// 검색어
+	private String keyword;
+	
+	// 전체 페이지 수
 	private Long totalPage;
 	
+	// 페이징에서 시작과 끝 번호(1, 11, 21... / 10, 20, 30...)
 	private Long startNum;
 	private Long endNum;
 	
@@ -35,6 +43,7 @@ public class Pager {
 		
 	}
 	
+	// totalCount :  전체 글의 갯수
 	public void makeNum(Long totalCount) {
 		
 		// 1. totalPage : 전체 페이지 갯수 
@@ -75,6 +84,13 @@ public class Pager {
 		
 		//----------
 		this.makePage();
+	}
+	
+	public String getKeyword() {
+		if(this.keyword == null) {
+			this.keyword="";
+		}
+		return this.keyword;
 	}
 
 	public Long getStartIndex() {
