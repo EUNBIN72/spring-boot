@@ -48,6 +48,11 @@ public class NoticeService implements BoardService{
 		// 공지 게시글 등록
 		int result = noticeDAO.insert(boardVO);
 		
+		// 글만 있으면(첨부파일이 없으면)
+		if(attaches ==null) {
+			return result;
+		}
+		
 		for(MultipartFile m:attaches) {
 			if (attaches == null || m.isEmpty()) {
 				continue;
@@ -70,8 +75,35 @@ public class NoticeService implements BoardService{
 	}
 	
 	@Override
-	public int update(BoardVO boardVO) throws Exception {
-		return noticeDAO.update(boardVO);
+	public int update(BoardVO boardVO,MultipartFile [] attaches) throws Exception {
+		int result = noticeDAO.update(boardVO);
+		
+		// 글만 있으면(첨부파일이 없으면)
+		if(attaches == null) {
+			return result;
+		}
+		
+		// 1. 파일을 하드디스크에 저장
+		for (MultipartFile m : attaches) {
+			if (m == null || m.isEmpty()) {
+				continue;
+			}
+		
+		
+		String fileName = fileManager.fileSave(upload+board, m);
+				
+		
+		// 2. 파일 정보를 FileDB에 저장(insert)
+		BoardFileVO vo = new BoardFileVO();
+		vo.setOriName(m.getOriginalFilename());  // 클라이언트가 올린 원본 파일
+		vo.setSaveName(fileName);  // 서버에 실제 저장된 파일명
+		vo.setBoardNum(boardVO.getBoardNum());  // 게시글 번호
+		result = noticeDAO.insertFile(vo);
+		}
+		
+		return result;
+		
+		
 	}
 	
 	@Override
@@ -84,6 +116,21 @@ public class NoticeService implements BoardService{
 		int result = noticeDAO.fileDelete(boardVO);
 		
 		return noticeDAO.delete(boardVO);
+	}
+	
+	@Override
+	public int fileDelete(BoardFileVO boardFileVO) throws Exception {
+		// 순서를 지켜야 됨
+		// 파일을 먼저 지우고 DB를 지워야 경로를 알 수 있음
+		// 1. File 조회
+		boardFileVO = noticeDAO.fileDetail(boardFileVO);
+		
+		// 2. File 삭제
+		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
+				
+		
+		// 3. DB 삭제
+		return noticeDAO.fileDeleteOne(boardFileVO);
 	}
 	
 }

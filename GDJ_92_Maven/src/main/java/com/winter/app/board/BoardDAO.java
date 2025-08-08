@@ -35,4 +35,8 @@ public interface BoardDAO {
 	// 첨부파일까지 같이 지우는 delete
 	public int fileDelete(BoardVO boardVO) throws Exception;
 	
+	// 
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception;
+	
+	public int fileDeleteOne(BoardFileVO boardFileVO) throws Exception;
 }

@@ -81,8 +81,8 @@ public class QnaController {
 	}
 	
 	@PostMapping("update")
-	public String update(QnaVO qnaVO, Model model) throws Exception {
-		int result = qnaService.update(qnaVO);
+	public String update(QnaVO qnaVO, MultipartFile[] attaches, Model model) throws Exception {
+		int result = qnaService.update(qnaVO, attaches);
 		
 		String msg = "수정 실패";
 		
@@ -99,7 +99,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("delete")
-	public String delete(QnaVO qnaVO, Model model) throws Exception {
+	public String delete(QnaVO qnaVO, MultipartFile[] attaches, Model model) throws Exception {
 		int result = qnaService.delete(qnaVO);
 		
 		String msg = "삭제 실패";
