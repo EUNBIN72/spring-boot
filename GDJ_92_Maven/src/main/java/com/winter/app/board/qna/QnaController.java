@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
 import com.winter.app.commons.Pager;
 
@@ -55,8 +57,8 @@ public class QnaController {
 	}
 	
 	@PostMapping("reply")
-	public String relpy(QnaVO qnaVO) throws Exception{
-		int result = qnaService.reply(qnaVO);
+	public String relpy(QnaVO qnaVO, MultipartFile[] attaches) throws Exception{
+		int result = qnaService.reply(qnaVO, attaches);
 		return "redirect:./list";
 	}
 	
@@ -90,7 +92,7 @@ public class QnaController {
 			msg = "수정 성공";
 		}
 		
-		String url = "./detail?boardNum="+qnaVO.getBoardNum(); 
+		String url = "./detail?boardNum=" + qnaVO.getBoardNum(); 
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
 		
@@ -113,6 +115,14 @@ public class QnaController {
 		model.addAttribute("url", url);
 		
 		return "commons/result";
+	}
+	
+	@PostMapping("fileDelete")
+	@ResponseBody //컨트롤러 메서드의 반환값을 HTTP 응답의 Body에 직접 담아 보냄
+	public int fileDelete(BoardFileVO boardFileVO, Model model) throws Exception {
+		int result = qnaService.fileDelete(boardFileVO);
+		
+		return result;
 	}
 	
 	

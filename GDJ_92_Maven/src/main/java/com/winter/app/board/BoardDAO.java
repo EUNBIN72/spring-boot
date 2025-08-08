@@ -27,8 +27,6 @@ public interface BoardDAO {
 	// update
 	public int update(BoardVO boardVO) throws Exception;
 	
-	public int updateFile(BoardFileVO boardFileVO) throws Exception;
-	
 	//delete
 	public int delete(BoardVO boardVO) throws Exception;
 	

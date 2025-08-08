@@ -45,9 +45,10 @@ public class QnaService implements BoardService{
 	
 	
 	// reply
-	public int reply(QnaVO qnaVO) throws Exception {
+	public int reply(QnaVO qnaVO, MultipartFile[] attaches) throws Exception {
 		// 부모글 정보(ref / step / depth) 조회
 		QnaVO parent = (QnaVO)qnaDAO.detail(qnaVO);
+		
 		
 		// REF : 부모의 REF를 자기의 REF로 지정
 		// STEP : 부모의 STEP에 +1한 값을 자기의 STEP으로 지정 (바로 아래로)
@@ -58,7 +59,35 @@ public class QnaService implements BoardService{
 		
 		// 같은 ref 그룹 내에, 부모보다 step이 큰 글들의 step을 1씩 증가
 		int result = qnaDAO.replyUpdate(parent);
+		
 		result = qnaDAO.insert(qnaVO);
+		
+		
+		//첨부파일
+		if (attaches == null) {
+			return result;
+		}
+		
+		for(MultipartFile m : attaches) {
+			if (m == null || m.isEmpty()) {
+				continue;
+		}
+			
+			// 1. File을 하드디스크에 저장
+			// fileManager.fileSave(저장경로, 업로드파일)
+			// 실제 서버에 파일을 저장하고, 저장된 파일명을 리턴함
+			String filename = fileManager.fileSave(upload+board, m);
+			
+			// 저장된 파일의 정보를 DB에 저장
+			BoardFileVO vo = new BoardFileVO();
+			vo.setOriName(m.getOriginalFilename());  // 클라이언트가 올린 원본 파일
+			vo.setSaveName(filename);  // 서버에 실제 저장된 파일명
+			vo.setBoardNum(qnaVO.getBoardNum());  // 게시글 번호
+			
+			result = qnaDAO.insertFile(vo);  // 파일 정보를 DB에 저장
+			
+		}
+		
 		return result;
 	}
 	
@@ -68,10 +97,15 @@ public class QnaService implements BoardService{
 	public int insert(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 		// qna 게시글 등록
 		int result = qnaDAO.insert(boardVO);
+		// ref 값을 update
 		result = qnaDAO.refUpdate(boardVO);
+		
+		if(attaches == null) {
+			return result;
+		}
 
-		for(MultipartFile m:attaches) {
-			if (attaches == null || m.isEmpty()) {
+		for(MultipartFile m : attaches) {
+			if (m == null || m.isEmpty()) {
 				continue;
 			}
 		// 1. File을 하드디스크에 저장
@@ -94,7 +128,6 @@ public class QnaService implements BoardService{
 	@Override
 	public int update(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 		int result = qnaDAO.update(boardVO);
-		result = qnaDAO.refUpdate(boardVO);
 		
 		// 글만 있으면 (첨부파일이 없으면)
 		if(attaches == null) {
@@ -126,9 +159,11 @@ public class QnaService implements BoardService{
 		for (BoardFileVO vo : boardVO.getBoardFileVOs()) {
 			fileManager.fileDelete(upload+board, vo.getSaveName());
 		}
-		int result = qnaDAO.fileDelete(boardVO);
 		
-		return qnaDAO.delete(boardVO);
+		int result = qnaDAO.fileDelete(boardVO);
+		result = qnaDAO.delete(boardVO);
+		
+		return result;
 		
 	}
 	
@@ -142,7 +177,7 @@ public class QnaService implements BoardService{
 		// 2. File 삭제
 		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
 		
-		
+		// 3. DB 삭제
 		return qnaDAO.fileDeleteOne(boardFileVO);
 		}
 	

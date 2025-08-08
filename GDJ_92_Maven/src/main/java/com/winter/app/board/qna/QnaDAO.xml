@@ -9,10 +9,13 @@
 	<resultMap type="QnaVO" id="detailResult">
 		<id column="BOARD_NUM" property="boardNum"/>
 		<result column="BOARD_TITLE" property="boardTitle"/>
-		<result column="BOARE_WRITER" property="boardWriter"/>
+		<result column="BOARD_WRITER" property="boardWriter"/>
 		<result column="BOARD_CONTENTS" property="boardContents"/>
 		<result column="BOARD_DATE" property="boardDate"/>
 		<result column="BOARD_HIT" property="boardHit"/>
+		<result column="BOARD_REF" property="boardRef"/>
+		<result column="BOARD_STEP" property="boardStep"/>
+		<result column="BOARD_DEPTH" property="boardDepth"/>
 		
  		<!-- collection - 1:N 매핑 -->
 		<collection property="boardFileVOs" javaType="java.util.List" ofType="BoardFileVO">
@@ -21,6 +24,26 @@
 			<result column="SAVE_NAME" property="saveName"/>
 		</collection>
 	</resultMap>
+	
+	<!-- 공통 쿼리를 만들어 놔서 필요한 곳에 가져다가 쓸 수 있음 / id 값을 주고 refid로 id 값을 찾아서 사용함 -->
+ 	<!-- 지금 여기서는 title, contents, writer 중에 하나를 골라서 검색기능 만드는 -->
+ 	<sql id="search">
+ 		<where>
+	 		<choose>
+				<when test="kind == 'k1'">
+	 				BOARD_TITLE
+	 			</when>
+	 			<when test="kind == 'k2'">
+	 				BOARD_CONTENTS
+	 			</when>
+	 			<otherwise>
+	 				BOARD_WRITER
+	 			</otherwise>
+	 		</choose>
+ 		 LIKE CONCAT('%', #{keyword}, '%')
+ 		</where> 
+ 			
+ 	</sql>
 		
 		
 	<select id="list" resultType="QnaVO" parameterType="Pager">
@@ -30,19 +53,20 @@
 	
 	<select id="totalCount" resultType="Long" parameterType="Pager">
   		SELECT COUNT(BOARD_NUM) FROM QNA
+  		<include refid="search"></include>
   	</select>
 	
 	<select id="detail" parameterType="QnaVO" resultMap="detailResult">
-		SELECT * FROM NOTICE N LEFT JOIN QNAFILES F
+		SELECT * FROM QNA Q LEFT JOIN QNAFILES F
   			USING(board_num)
-  		WHERE N.BOARD_NUM=#{boardNum}
+  		WHERE Q.BOARD_NUM=#{boardNum}
 	</select>
 	
 	<insert id="insert" parameterType="QnaVO" useGeneratedKeys="true" keyProperty="boardNum">
 		INSERT INTO QNA
 	 	(BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT, BOARD_REF, BOARD_STEP, BOARD_DEPTH)
 	 	VALUES
-	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0, 0, 0, 0)
+	 	(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0, #{boardRef}, #{boardStep}, #{boardDepth})
 	</insert>
 	
 	<!-- 파일을 저장하는 -->
@@ -71,9 +95,9 @@
 		WHERE BOARD_NUM = #{boardNum}
 	</update>
 	
+	<!-- 답글이 있는 글을 삭제하면 제목을 null로(답글은 남아있음) -->
 	<delete id="delete" parameterType="QnaVO">
-		DELETE FROM QNA
-		WHERE BOARD_NUM = #{boardNum}
+		UPDATE QNA SET BOARD_TITLE = null WHERE BOARD_NUM = #{boardNum}
 	</delete>
 	
 	<!-- 첨부파일까지 같이 지우는 쿼리 -->		
