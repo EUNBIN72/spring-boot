@@ -17,6 +17,7 @@ public class FileManager {
 		
 	}
 	
+	
 	public String fileSave(String dir, MultipartFile attaches) throws Exception {
 		// 1. 디렉토리 생성
 		File file = new File(dir);

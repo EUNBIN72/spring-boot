@@ -92,14 +92,61 @@ public class QnaService implements BoardService{
 	
 
 	@Override
-	public int update(BoardVO boardVO) throws Exception {
-		return qnaDAO.update(boardVO);
+	public int update(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
+		int result = qnaDAO.update(boardVO);
+		result = qnaDAO.refUpdate(boardVO);
+		
+		// 글만 있으면 (첨부파일이 없으면)
+		if(attaches == null) {
+			return result;
+		}
+		
+		// 1. 파일을 하드디스크에 저장
+		for (MultipartFile m : attaches) {
+			if (m == null || m.isEmpty()) {
+				continue;
+		}
+			
+		String fileName = fileManager.fileSave(upload+board, m);
+		
+		// 2. 파일 정보를 FileDB에 저장(insert)
+		BoardFileVO vo = new BoardFileVO();
+		vo.setOriName(m.getOriginalFilename());
+		vo.setSaveName(fileName);
+		vo.setBoardNum(boardVO.getBoardNum());
+		result = qnaDAO.insertFile(vo);
+		}
+		return result;
 	}
 
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
+		boardVO =  qnaDAO.detail(boardVO);
+		
+		for (BoardFileVO vo : boardVO.getBoardFileVOs()) {
+			fileManager.fileDelete(upload+board, vo.getSaveName());
+		}
+		int result = qnaDAO.fileDelete(boardVO);
+		
 		return qnaDAO.delete(boardVO);
+		
 	}
+	
+	@Override
+	public int fileDelete(BoardFileVO boardFileVO) throws Exception {
+		// 순서를 지켜야 됨
+		// 파일을 먼저 지우고 DB를 지워야 경로를 알 수 있음
+		// 1. File 조회
+		boardFileVO = qnaDAO.fileDetail(boardFileVO);
+		
+		// 2. File 삭제
+		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
+		
+		
+		return qnaDAO.fileDeleteOne(boardFileVO);
+		}
+	
+	
 	
 	
 
