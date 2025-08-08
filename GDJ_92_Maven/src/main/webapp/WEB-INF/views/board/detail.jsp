@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,27 +22,43 @@
 					<div class="row col-md-8 offset-md-2">	
 						<h2>${board } Detail Page</h2>
 						<!-- controller에서 detail이라는 이름으로 보냈기 때문에 detail. 으로 시작 -->
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Title</th>
-									<th>Writer</th>
-								</tr>
-							</thead>
-								<tbody>
-									<!-- 각 행에서 반복 출력해야 될 것들 어떻게 출력할래 -->
-									<!-- JSTL(JSP Standard Tag Library)의 반복문 태그 -->
-									<!-- 배열, 리스트, 맵 등 여러 개의 값을 하나씩 꺼내 쓸 때 사용(자바의 for-each문과 비슷한 역할) -->
-									
-									<!-- ${list }는 
-										NoticeController의 model.addAttribute("list", list);에서 "list"랑 같은거임 -->
-									<!-- list의 각 요소를 반복문이 돌 때마다 vo 변수에 담아서 출력할거니까
-										출력해줄 때 vo.뭐시기 를 써주면서 출력해야지 -->	
-										<tr>
-											<td>${vo.boardTitle }</a></td>
-											<td>${vo.boardWriter }</td>
-										</tr>
-								</tbody>
+						<table class="table">
+						<!-- 각 행에서 반복 출력해야 될 것들 어떻게 출력할래 -->
+						<!-- JSTL(JSP Standard Tag Library)의 반복문 태그 -->
+						<!-- 배열, 리스트, 맵 등 여러 개의 값을 하나씩 꺼내 쓸 때 사용(자바의 for-each문과 비슷한 역할) -->
+						
+						<!-- ${list }는 
+							NoticeController의 model.addAttribute("list", list);에서 "list"랑 같은거임 -->
+						<!-- list의 각 요소를 반복문이 돌 때마다 vo 변수에 담아서 출력할거니까
+							출력해줄 때 vo.뭐시기 를 써주면서 출력해야지 -->	
+							<tr>
+								<th>No</th>
+								<td>${vo.boardNum}</td>
+								<th>Hit</th>
+								<td>${vo.boardHit}</td>
+							</tr>
+							<tr>	
+								<th>Writer</th>
+								<td>${vo.boardWriter}</td>
+								<th>Date</th>
+								<td>${fn:replace(vo.boardDate, 'T', '&nbsp;&nbsp;')}</td>
+							</tr>
+							<tr>	
+								<th>Title</th>
+								<td colspan="3">${vo.boardTitle}</a></td>
+							</tr>
+							<tr>	
+								<th>File</th>
+								<c:forEach items="${vo.boardFileVOs }" var="f">
+								<td colspan="3">
+									<a href="/files/${board}/${f.saveName}">${f.oriName}</a><br>
+								</c:forEach>
+								</td>
+							</tr>
+							<tr>	
+								<th>Content</th>
+								<td colspan="3">${vo.boardContents}</a></td>
+							</tr>
 						</table>
 						
 						<div>
