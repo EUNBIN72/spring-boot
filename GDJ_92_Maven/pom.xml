@@ -142,10 +142,6 @@
 	        </resource>
 	        <resource>
 	            <directory>src/main/resources</directory>
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 	        </resource>
  	 	 </resources>
 		  
