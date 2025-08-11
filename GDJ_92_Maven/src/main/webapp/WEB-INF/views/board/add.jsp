@@ -74,6 +74,7 @@
 	</div>
 		<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
 		<script type="text/javascript" src="/js/board/board_add.js"></script>
+		<!-- 위지위그 사용하기 : summernote 사이트에서 cdn 가져옴 -->
 		 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
 		<script type="text/javascript">
 			$("#contents").summernote({
@@ -87,11 +88,26 @@
 						method: "POST",
 						body : f
 					})
-					.then(r=>r.text)
+					.then(r=>r.text())
+					.then(r=>{
+						$("#contents").summernote('editor.insertImage', r);
+					})
+					.catch(e=> console/log(e))
+				},
+				onMediaDelete: function(files) {
+					let f = $(files[0]).attr("src");  // /files/notice/****.jpg 
+					
+					let params = new URLSearchParams();
+					params.append("fileName", f);
+					fetch("./boardFileDelete", {
+						method: "POST",
+						body: params
+					})	
+					.then(r=>r.json())
 					.then(r=>{
 						console.log(r)
 					})
-					.catch(e=> console/log(e))
+					
 				}
 				}
 			})

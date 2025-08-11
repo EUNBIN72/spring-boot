@@ -121,15 +121,22 @@ public class NoticeService implements BoardService{
 	@Override
 	public int fileDelete(BoardFileVO boardFileVO) throws Exception {
 		// 순서를 지켜야 됨
-		// 파일을 먼저 지우고 DB를 지워야 경로를 알 수 있음
+		// DB 기록을 먼저 지우면 실제 파일의 경로를 알 수 없음 -> 물리적인 파일을 먼저 삭제해야 됨
 		// 1. File 조회
+		// noticeDAO 객체의 fileDetail 메소드를 호출해 삭제할 파일의 상세 정보를 데이터베이스에서 가져옴
+		// 서버에 저장된  실제 파일의 이름(saveName)을 알아내기 위해 필수 -> boardFileVO 객체에 담겨 반환됨
 		boardFileVO = noticeDAO.fileDetail(boardFileVO);
 		
 		// 2. File 삭제
+		// fileManager의 fileDelete 메소드를 호출하여 서버에 저자왼 실제 파일을 삭제
+		// 메소드 인자로는 파일이 저장된 폴더 경로(upload+board)와 고유한 파일명(boardFileVO.getSaveName())이 전달됨
+		// 파일 삭젝 성공하면 result 변수에 true가 저장됨
 		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
 				
 		
 		// 3. DB 삭제
+		// 물리적 파일이 성공적으로 삭제되면, DB에 저장된 해당 파일의 정보를 삭제함
+		// noticeDAO의 fileDeleteOne 메소드를 호출하여 관련 데이터를 DB에서 삭제
 		return noticeDAO.fileDeleteOne(boardFileVO);
 	}
 	
@@ -138,5 +145,24 @@ public class NoticeService implements BoardService{
 		
 		return noticeDAO.fileDetail(boardFileVO);
 	}
+	
+	@Override
+	public String boardFile(MultipartFile multipartFile) throws Exception {
+		if(multipartFile == null || multipartFile.getSize() == 0) {
+			return null;
+		}
+		
+		String filename = fileManager.fileSave(upload+board, multipartFile);
+		return "/files/" + board + "/" + filename;
+	}
+	
+	
+	@Override
+	public boolean boardFileDelete(String fileName) throws Exception {
+		fileName = fileName.substring(fileName.lastIndexOf("/"));
+		
+		return fileManager.fileDelete(upload+board, fileName);
+	}
+	
 	
 }

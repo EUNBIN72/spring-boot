@@ -150,11 +150,19 @@ public class NoticeController {
 	}
 
 	@PostMapping("boardFile")
+	@ResponseBody
 	public String boardFile(MultipartFile bf) throws Exception {
 		log.info(bf.getOriginalFilename());
 		
 		
-		return ""; 
-			
+		 return noticeService.boardFile(bf);
 	}
+
+	@PostMapping("boardFileDelete")
+	@ResponseBody
+	public boolean boardFileDelete(String fileName) throws Exception {
+		
+		return noticeService.boardFileDelete(fileName);
+	}
+
 }
