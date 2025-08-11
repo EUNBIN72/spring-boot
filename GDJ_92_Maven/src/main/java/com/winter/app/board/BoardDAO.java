@@ -36,5 +36,6 @@ public interface BoardDAO {
 	// 
 	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception;
 	
+	
 	public int fileDeleteOne(BoardFileVO boardFileVO) throws Exception;
 }

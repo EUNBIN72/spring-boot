@@ -26,4 +26,7 @@ public interface BoardService {
 	// file delete
 	public int fileDelete(BoardFileVO boardFileVO) throws Exception;
 	
+	// file detail
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception;
+	
 }

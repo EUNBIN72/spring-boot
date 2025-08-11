@@ -20,7 +20,7 @@ import com.winter.app.commons.Pager;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@RequestMapping(value="/board/*")
+@RequestMapping(value="/notice/*")
 @Slf4j
 public class NoticeController {
 	
@@ -138,9 +138,16 @@ public class NoticeController {
 		
 		return result;
 		
-			
 	}
 	
+	@GetMapping("fileDown")
+	public String fileDown(BoardFileVO boardFileVO, Model model) throws Exception {
+		boardFileVO = noticeService.fileDetail(boardFileVO);
+		model.addAttribute("vo", boardFileVO);
+		
+		
+		return "fileDownView";
+	}
 
 	
 

@@ -17,6 +17,6 @@ public interface QnaDAO extends BoardDAO {
 	// 답글 등록시 QnaVO로 등록
 	public int replyUpdate(QnaVO qnaVO) throws Exception;
 	
-	// public int replyInsert(QnaVO qnaVO) throws Exception;
+	
 
 }

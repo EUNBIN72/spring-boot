@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
+import com.winter.app.board.notice.NoticeService;
+import com.winter.app.commons.FileDownView;
 import com.winter.app.commons.Pager;
 
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/qna/*")
 @Slf4j
 public class QnaController {
+
+    private final FileDownView fileDownView;
+
+    private final NoticeService noticeService;
 	
 	@Autowired
 	private QnaService qnaService;
@@ -28,6 +34,11 @@ public class QnaController {
 	// application.properties에 정의된 board.qna 값을 읽어서 name 변수에 주입함
 	@Value("${board.qna}")
 	private String name;
+
+    QnaController(NoticeService noticeService, FileDownView fileDownView) {
+        this.noticeService = noticeService;
+        this.fileDownView = fileDownView;
+    }
 	
 	// 
 	@ModelAttribute("board")  // model은 key와 value를 가짐
@@ -123,6 +134,14 @@ public class QnaController {
 		int result = qnaService.fileDelete(boardFileVO);
 		
 		return result;
+	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(BoardFileVO boardFileVO, Model model) throws Exception {
+		boardFileVO = qnaService.fileDetail(boardFileVO);
+		model.addAttribute("vo", boardFileVO);
+		
+		return "fileDownView";
 	}
 	
 	

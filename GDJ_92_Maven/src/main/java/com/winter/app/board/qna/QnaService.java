@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardService;
 import com.winter.app.board.BoardVO;
+import com.winter.app.board.notice.NoticeDAO;
 import com.winter.app.commons.FileManager;
 import com.winter.app.commons.Pager;
 
@@ -181,7 +182,11 @@ public class QnaService implements BoardService{
 		return qnaDAO.fileDeleteOne(boardFileVO);
 		}
 	
-	
+	@Override
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception {
+		
+		return qnaDAO.fileDetail(boardFileVO);
+	}
 	
 	
 
