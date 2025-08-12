@@ -33,6 +33,11 @@
 	<dependencies>
 	
 	<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+		<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-aop</artifactId>
+					<!-- 버전 생략 -->
+		</dependency>	
 		<dependency>	
 		    <groupId>org.mariadb.jdbc</groupId>
 		    <artifactId>mariadb-java-client</artifactId>

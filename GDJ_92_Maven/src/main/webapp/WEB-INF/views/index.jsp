@@ -19,6 +19,12 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<h1>Index 메인 페이지</h1>
+					<!-- 로그인이 되면 -->
+					<c:if test="${not empty member }">
+						<h3>${member.name }</h3>
+					</c:if>
+					
+					
 				</div>
 			</div>
 			<!-- End Content -->

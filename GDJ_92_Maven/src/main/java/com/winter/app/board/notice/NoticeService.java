@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
@@ -15,6 +16,8 @@ import com.winter.app.commons.Pager;
 
 
 @Service
+// 모든 클래스에 트랜잭션을 걸어주는 어노테이션
+@Transactional
 public class NoticeService implements BoardService{
 	
 	@Autowired
@@ -42,7 +45,7 @@ public class NoticeService implements BoardService{
 		return noticeDAO.detail(boardVO);  // 받을 애를 보내줌
 	}
 	
-	
+	@Transactional
 	@Override
 	public int insert(BoardVO boardVO, MultipartFile[] attaches) throws Exception {
 		// 공지 게시글 등록
@@ -73,6 +76,7 @@ public class NoticeService implements BoardService{
 		
 		return result; //noticeDAO.insert(boardVO);
 	}
+	
 	
 	@Override
 	public int update(BoardVO boardVO,MultipartFile [] attaches) throws Exception {
