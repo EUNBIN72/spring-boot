@@ -2,15 +2,21 @@ package com.winter.app.transfer;
 
 import org.springframework.stereotype.Component;
 
+import com.winter.app.members.MemberVO;
+
 @Component
 public class Transfers {
 	
-	public void takeBus() {
+	public void takeBus(String num) {
 		System.out.println("버스 이용");
 	}
 
-	public void takeSubWay() {
+	public MemberVO takeSubWay(MemberVO memberVO) {
 		System.out.println("지하철 이용");
+//		memberVO = new MemberVO();
+//		memberVO.setUsername("test");
+		
+		return memberVO;
 	}
 	
 	public void getTaxi() {

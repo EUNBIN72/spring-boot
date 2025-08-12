@@ -11,7 +11,6 @@ public class Transaction {
 		System.out.println("session을 false");
 		
 		
-		
 	}
 	
 	public void t2() {

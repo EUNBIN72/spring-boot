@@ -26,7 +26,7 @@ public class MemberService {
 	@Autowired
 	private Transaction transaction;
 	
-	public int join(MemberVO memberVO, MultipartFile profile) throws Exception{
+	public int join(MemberVO memberVO, MultipartFile profile) throws Exception {
 		transaction.t();
 		int result = memberDAO.join(memberVO);
 		
