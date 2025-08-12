@@ -24,28 +24,28 @@
 						  <input type="text" class="form-control" name="username">
 						</div>
 						<div class="mb-3">
-						  <label for="password" class="form-label">password</label>
+						  <label for="password" class="form-label">Password</label>
 						  <input type="password" class="form-control" name="password">
 						</div>
 						<div class="mb-3">
-						  <label for="name" class="form-label">name</label>
+						  <label for="name" class="form-label">Name</label>
 						  <input type="text" class="form-control" name="name">
 						</div>
 						<div class="mb-3">
-						  <label for="email" class="form-label">email</label>
+						  <label for="email" class="form-label">Email</label>
 						  <input type="text" class="form-control" name="email">
 						</div>
 						<div class="mb-3">
-						  <label for="phone" class="form-label">phone</label>
+						  <label for="phone" class="form-label">Phone</label>
 						  <input type="text" class="form-control" name="phone">
 						</div>
 						<div class="mb-3">
-						  <label for="birth" class="form-label">birth</label>
+						  <label for="birth" class="form-label">Birth</label>
 						  <input type="date" class="form-control" name="birth">
 						</div>
 						
 						<div>
-							<label for="file" class="form-label">file</label>
+							<label for="file" class="form-label">File</label>
 							<input type="file" class="" name="profile">
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>

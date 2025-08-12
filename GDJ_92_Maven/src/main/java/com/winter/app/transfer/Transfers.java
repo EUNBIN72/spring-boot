@@ -1,0 +1,19 @@
+package com.winter.app.transfer;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Transfers {
+	
+	public void takeBus() {
+		System.out.println("버스 이용");
+	}
+
+	public void takeSubWay() {
+		System.out.println("지하철 이용");
+	}
+	
+	public void getTaxi() {
+		System.out.println("택시 이용");
+	}
+}
