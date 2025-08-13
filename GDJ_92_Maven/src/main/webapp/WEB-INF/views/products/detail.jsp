@@ -49,6 +49,11 @@
 							<button class="btn btn-outline-danger">Delete</button>
 						</form>
 					</div>
+					
+					<div>
+						<button class="btn btn-outline-primary">장바구니</button>
+					</div>
+					
 					</div>
 				</div>
 			</div>

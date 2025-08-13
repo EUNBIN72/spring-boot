@@ -52,6 +52,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// profile
+	@GetMapping("detail")
+	public void detail() throws Exception{
+		
+	}
+	
 	
 	 
 	

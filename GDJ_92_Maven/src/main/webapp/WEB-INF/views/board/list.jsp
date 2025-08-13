@@ -76,9 +76,16 @@
 											<!-- c:catch로 감싸주면 에러가 발생해도 JSP가 죽지 않고, 예외를 무시하거나, 에러 변수로 받아 처리할 수 있음 -->
 											<c:catch>
 											<!-- begin이 0부터 시작하는 이유는 depth는 1이상이여야 들여쓰기를 하기 때문 -->
-											<c:forEach begin="1" end="${l.boardDepth }">⇨&nbsp;&nbsp;&nbsp;</c:forEach>
+											<c:forEach begin="1" end="${l.boardDepth}">--</c:forEach>
 											</c:catch>
-											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle }</a>
+											<c:choose>
+												<c:when test="${empty l.boardTitle}">
+													삭제된 글입니다
+												</c:when>
+												<c:otherwise>										
+													<a href="./detail?boardNum=${l.boardNum}">${l.boardTitle}</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
 										<td>${l.boardWriter }</td>
 										<td>${l.boardDate }</td>
