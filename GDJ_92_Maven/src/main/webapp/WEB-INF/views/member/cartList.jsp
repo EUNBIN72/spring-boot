@@ -19,23 +19,20 @@
 			<div id="content">
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
-					<!-- page contents 내용 -->
-					<!-- 메인 페이지 사이드바에서 BOARD에서 Notice를 클릭했을 때 나와야하는 페이지 구성 -->
-					<!-- NOTICE(공지사항)의 목록 리스트가 나왔으면 좋겠잖아 -->
-					<!-- 그럼 리스트 어떻게 보여줄거야 -->
 					<div class="col-md-8 offset-md-2">
-					
-					<!-- notice 페이지인지 qna 페이지인지 알려주기 -->
-					<!-- notice랑 qna는 보여지는 페이지가 거의 비슷하기 때문에 board로 통일해서 같이 사용해줌 -->
-					<!-- notice 페이지에 들어가면 notice, qna 페이지에 들어가면 qna가 출력되게 -->
 					<h2>장바구니</h2>
 					
-					<!-- 테이블 형태로 보여줘야겠지 -> 그럼 테이블 만들어 -->
 						<table class="table table-striped">
-						<!-- 첫 번째 행 만들어서 각 열의 제목들 하드코딩 -->
 							<thead>
 								<tr>
-									<th></th>
+									<th>
+										<div class="form-check">
+											  <input class="form-check-input" type="checkbox" value="" id="checkAll">
+											  <label class="form-check-label" for="checkDefault">
+											    전체선택
+											  </label>
+										</div>
+									</th>
 									<th>상품명</th>
 									<th>이자율</th>
 									<th>상품종류</th>
@@ -53,7 +50,11 @@
 									
 								<c:forEach var="l" items="${list }">
 									<tr>
-										<td></td>
+										<td>
+											<div class="form-check">
+											  <input class="form-check-input ch" type="checkbox" value="${vo.productNum}">
+											</div>
+										</td>
 										<td>
 											<!-- c:catch 를 쓰는 이유는 답글이라는 기능은 notice 페이지에는 없고 qna 페이지에만 존재함 -->
 											<!-- qna list에서만 답글 기능이 나왔으면 좋겠음 -->
