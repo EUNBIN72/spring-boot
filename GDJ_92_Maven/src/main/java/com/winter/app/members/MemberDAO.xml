@@ -53,7 +53,9 @@
  		WHERE USERNAME=#{username}
  	</select>
  	
- 	
+ 	<insert id="cartAdd" parameterType="Map">
+ 		INSERT INTO CART VALUES (#{username}, #{productNum})
+ 	</insert>
  	
  	
  	

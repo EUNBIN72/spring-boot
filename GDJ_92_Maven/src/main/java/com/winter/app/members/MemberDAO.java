@@ -22,5 +22,7 @@ public interface MemberDAO {
 	// logout
 	public MemberVO logout(MemberVO memberVO) throws Exception;
 	
-	 
+	// cartAdd
+	public int cartAdd(Map<String, Object> map) throws Exception;
+	
 }
