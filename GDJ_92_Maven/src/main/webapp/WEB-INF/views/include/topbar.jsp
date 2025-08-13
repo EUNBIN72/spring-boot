@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>	
 <!-- Topbar -->
 <nav
 	class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -25,8 +25,7 @@
 			</div>
 		</div>
 	</form>
-
-	<c:if test="${not empty member }">
+<c:if test="${not empty member}">
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
 
@@ -52,9 +51,8 @@
 					</div>
 				</form>
 			</div></li>
-
-
-
+		
+		
 		<!-- Nav Item - Alerts -->
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
@@ -176,10 +174,10 @@
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="/member/login"> <i
-					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Login
-				</a> <a class="dropdown-item" href="/member/join"> <i
-					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Join
+				<a class="dropdown-item" href="#"> <i
+					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+				</a> <a class="dropdown-item" href="#"> <i
+					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
 				</a> <a class="dropdown-item" href="#"> <i
 					class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity
 					Log
@@ -193,13 +191,17 @@
 			</div></li>
 
 	</ul>
-	</c:if>
-	
-	<c:if test="${empty member }">
-		<ul class="nav-nav ml-auto">
-			<li class="nave-item"><a href="/member/login">Login</a></li>
-			<li class="nave-item"><a href="/member/join">Join</a></li>
-		</ul>
-	</c:if>
+</c:if>
 
+<c:if test="${empty member}">
+	<ul class="navbar-nav ml-auto">
+	<li class="nav-item mx-2">
+		<a href="/member/login">Login</a>
+	</li>	
+	
+		<li class="nav-item dropdown no-arrow mx-2"><a href="/member/join">Join</a></li>
+	</ul>
+
+</c:if>
 </nav>
+<!-- End of Topbar -->
