@@ -1,6 +1,7 @@
 package com.winter.app.members;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
+import com.winter.app.products.ProductVO;
 import com.winter.app.transaction.Transaction;
 
 @Service
@@ -72,5 +74,10 @@ public class MemberService {
 		return memberDAO.cartAdd(map);
 	}
 
+	
+	public List<ProductVO> cartList(MemberVO memberVO) throws Exception{
+		// 페이징 처리 해야 함
+		return memberDAO.cartList(memberVO);
+	}
 	
 }
