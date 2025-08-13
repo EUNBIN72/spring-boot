@@ -27,8 +27,8 @@
 						<form method="post" enctype="multipart/form-data">
 							<input type="hidden" name="boardNum" value="${vo.boardNum }">						
 							<div class="mb-3">
-							  <label for="writer" class="form-label">Writer</label>
-							  <input type="text" class="form-control" name="boardWriter" value="${vo.boardWriter }">
+								<!-- 작성자는 직접 입력하는 것이 아니라 로그인 세션에서 정보를 가져와서 출력함 -->
+								<span>${member.username }</span>
 							</div>
 							<div class="mb-3">
 							  <label for="title" class="form-label">Title</label>

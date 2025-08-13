@@ -37,7 +37,6 @@ public class AdminCheckFilter implements Filter {
 			req.getRequestDispatcher("/WEB-INF/views/commons/result.jsp").forward(request, response);
 		}
 		
-		chain.doFilter(request, response);
 		
 	}
 

@@ -16,7 +16,9 @@ import com.winter.app.board.BoardVO;
 import com.winter.app.board.notice.NoticeService;
 import com.winter.app.commons.FileDownView;
 import com.winter.app.commons.Pager;
+import com.winter.app.members.MemberVO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -79,7 +81,9 @@ public class QnaController {
 	}
 	
 	@PostMapping("add")
-	public String insesrt(QnaVO qnaVO, MultipartFile[] attaches) throws Exception {
+	public String insesrt(QnaVO qnaVO, MultipartFile[] attaches, HttpSession session) throws Exception {
+		MemberVO memberVO = (MemberVO)session.getAttribute("member");
+		qnaVO.setBoardWriter(memberVO.getUsername());
 		int result = qnaService.insert(qnaVO, attaches);
 		return "redirect:./list"; 
 			
