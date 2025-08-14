@@ -32,6 +32,11 @@ public interface MemberDAO {
 	public List<ProductVO> cartList(MemberVO memberVO) throws Exception;
 	
 	// cart delete
+	// 매개변수가 Map :  여러 파라미터를 전달할 때 사용(한 번에 객체 형태로 전달)
+	// 어떤 회원의 장바구니인지(username), 어떤 상품을 삭제할지(productName)
 	public int cartDelete(Map<String, Object> map) throws Exception;
+	
+	// account insert
+	public int insertAccount() throws Exception;
 	
 }

@@ -74,7 +74,9 @@
 						
 						<div>
 							<button class="btn btn-danger" id="del">DELETE</button>
+							<button class="btn btn-primary" id="add">가입</button>
 						</div>
+
 						
 					</div>
 				</div>

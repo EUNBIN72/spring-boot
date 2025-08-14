@@ -70,13 +70,13 @@ public class MemberController {
 	@PostMapping("cartAdd")
 	@ResponseBody
 	public int cartAdd(Long productNum, HttpSession session) throws Exception {
+		// 세션에 저장된 MemberVO 객체를 가져옴
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
 		Map<String, Object> map = new HashMap<>();
 		map.put("username", memberVO.getUsername());
 		map.put("productNum", productNum);
 		
 		return memberService.cartAdd(map);
-				
 				
 	}
 	
@@ -97,6 +97,7 @@ public class MemberController {
 		return "redirect:./cartList";
 	}
 	
+
 	 
 	
 }
