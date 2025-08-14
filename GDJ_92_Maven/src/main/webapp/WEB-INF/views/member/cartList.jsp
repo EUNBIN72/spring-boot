@@ -78,6 +78,6 @@
 		</div>
 	</div>
 		<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
-		<script type="text/javascript" src="/js/board/board_list.js"></script>
+		<script type="text/javascript" src="/js/cart/cartList.js"></script>
 </body>
 </html>
