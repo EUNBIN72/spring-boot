@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.winter.app.members.MemberService;
+
 @Controller
 @RequestMapping("/products/*")
 public class ProductController {
@@ -101,5 +103,12 @@ public class ProductController {
 		model.addAttribute("url", "./list");
 		return "commons/result";
 	}	
+	
+	
+
+	
+	
+	
+	
 	
 }

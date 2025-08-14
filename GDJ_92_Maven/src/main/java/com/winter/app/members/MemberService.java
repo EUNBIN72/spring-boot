@@ -1,5 +1,6 @@
 package com.winter.app.members;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,6 +79,16 @@ public class MemberService {
 	public List<ProductVO> cartList(MemberVO memberVO) throws Exception{
 		// 페이징 처리 해야 함
 		return memberDAO.cartList(memberVO);
+	}
+	
+	// cart delete
+	public int cartDelete(Long [] productNum, MemberVO memberVO)throws Exception{
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", memberVO.getUsername());
+		map.put("list", Arrays.asList(productNum));
+	
+	return memberDAO.cartDelete(map);
+	
 	}
 	
 }

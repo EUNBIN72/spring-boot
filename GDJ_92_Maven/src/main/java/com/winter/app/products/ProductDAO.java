@@ -22,5 +22,6 @@ public interface ProductDAO {
 	 
 	// delete
 	public int delete(ProductVO productVO) throws Exception;
+
 	
 }

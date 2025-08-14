@@ -31,4 +31,7 @@ public interface MemberDAO {
 	//
 	public List<ProductVO> cartList(MemberVO memberVO) throws Exception;
 	
+	// cart delete
+	public int cartDelete(Map<String, Object> map) throws Exception;
+	
 }

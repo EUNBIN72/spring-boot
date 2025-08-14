@@ -69,7 +69,18 @@
  	</select>
  	
  	
- 	
+	<delete id="cartDelete" parameterType="java.util.Map">
+  		DELETE FROM CART 
+  		<where>
+  			USERNAME=#{username}
+  			AND  			
+  			PRODUCT_NUM
+  			IN
+  			<foreach collection="list" item="item" open="(" close=")" separator=",">
+  				#{item}
+  			</foreach>
+  		</where>
+  	</delete>
  	
  	
  	
