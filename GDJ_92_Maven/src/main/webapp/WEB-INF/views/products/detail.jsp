@@ -48,10 +48,13 @@
 								<a class="btn btn-outline-primary" href="./update?productNum=${vo.productNum}">Update</a>
 								<button class="btn btn-outline-danger">Delete</button>
 							</form>
+						<div>
+						<button class="btn btn-primary" id="cartAdd" data-product-num="${vo.productNum}">장바구니</button>
+							<form action="/account/add" method="post">
+								<input type="hidden" name="productNum" value="${vo.productNum}">
+								<button class="btn btn-primary" id="add" data-product-num="${vo.productNum}">가입</button>
+							</form>
 						</div>
-							<div>
-								<button class="btn btn-outline-success" id="cartAdd" data-product-num="${vo.productNum }">장바구니</button>
-							</div>	
 					
 					</div>
 				</div>
