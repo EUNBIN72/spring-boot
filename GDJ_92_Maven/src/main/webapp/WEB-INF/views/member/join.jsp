@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,38 +19,48 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<form method="post" enctype="multipart/form-data">
+					<form:form method="post" modelAttribute="memberVO" enctype="multipart/form-data">
 						<div class="mb-3">
 						  <label for="id" class="form-label">ID</label>
-						  <input type="text" class="form-control" name="username">
+						  <form:input path="username" cssClass="form-control"/>
+						  <form:errors path="username"></form:errors>
 						</div>
 						<div class="mb-3">
 						  <label for="password" class="form-label">Password</label>
-						  <input type="password" class="form-control" name="password">
+						  <form:input path="password" cssClass="form-control"/>
+						  <form:errors path="password"></form:errors>
 						</div>
 						<div class="mb-3">
+							<label for="passwordCheck" class="form-label">Password Check</label> 
+							<input type="password" class="form-control" name="passwordCheck"
+								id="passwordCheck" aria-describedby="passwordCheckHelp">
+							<form:errors path="passwordCheck"></form:errors>
+						</div>		
+						<div class="mb-3">
 						  <label for="name" class="form-label">Name</label>
-						  <input type="text" class="form-control" name="name">
+						  <form:input path="name" cssClass="form-control"/>
+						  <form:errors path="name"></form:errors>
 						</div>
 						<div class="mb-3">
 						  <label for="email" class="form-label">Email</label>
-						  <input type="text" class="form-control" name="email">
+						  <form:input path="email" cssClass="form-control"/>
+						  <form:errors path="email"></form:errors>
 						</div>
 						<div class="mb-3">
 						  <label for="phone" class="form-label">Phone</label>
-						  <input type="text" class="form-control" name="phone">
+						  <form:input path="phone" cssClass="form-control"/>
 						</div>
 						<div class="mb-3">
 						  <label for="birth" class="form-label">Birth</label>
 						  <input type="date" class="form-control" name="birth">
+						  <form:errors path="birth"></form:errors>
 						</div>
-						
 						<div>
-							<label for="file" class="form-label">File</label>
-							<input type="file" class="" name="profile">
+						  <label for="file" class="form-label">File</label>
+						  <input type="file" class="" name="profile">
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>
+					</form:form>
 				</div>
 			</div>
 			<!-- End Content -->

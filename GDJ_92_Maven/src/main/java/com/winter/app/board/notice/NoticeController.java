@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.winter.app.commons.Pager;
 import com.winter.app.members.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -71,15 +73,24 @@ public class NoticeController {
 	
 	// form 태그로 이동하는 메소드
 	@GetMapping("add")
-	public String insert() throws Exception{
+	public String insert(@ModelAttribute("boardVO") BoardVO boardVO) throws Exception{
 		return "board/add";
 	}
+	// @ModelAttribute("boardVO") = model.addAttribute("boardVO", new NoticeVO()) (두개 같은거임)
+	
 	
 	
 	// 오버로딩 : 같은 이름의 메소드를 여러개 만드는 것
 	// MultipartFile : HTTP 요청에서 파일 업로드 데이터를 편리하게 처리하도록 도와줌
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO, MultipartFile [] attaches, HttpSession session) throws Exception {
+	// @Valid 바로 다음에 BindingResult이 와야됨 (순서 중요함)
+	public String insert(@Valid BoardVO noticeVO, BindingResult bindingResult , MultipartFile [] attaches, HttpSession session) throws Exception {
+		
+		// 에러가 있으면
+		if(bindingResult.hasErrors()) {
+			return "board/add";
+		}
+		
 		MemberVO memberVO = (MemberVO)session.getAttribute("member");
 		noticeVO.setBoardWriter(memberVO.getUsername());
 		
