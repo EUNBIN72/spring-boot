@@ -204,5 +204,9 @@
 	</ul>
 
 </c:if>
+	<ul>
+		<li><a href="/?lang=ko">KO</a></li>
+		<li><a href="/?lang=en">EN</a></li>
+	</ul>
 </nav>
 <!-- End of Topbar -->
