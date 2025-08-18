@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.members.update.UpdateGroup;
+import com.winter.app.members.validation.AddGroup;
 import com.winter.app.products.ProductVO;
 
 import jakarta.annotation.Resource;
@@ -34,18 +37,52 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public String join(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
+	// AddGroup으로 지정된 클래스만 사용하겠다
+	// @Validated를 쓰고 검증 그룹을 지정하지 않으면 검증 그룹이 없는 것들만 검증함
+	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
 		
 		boolean check = memberService.hasMemberError(memberVO, bindingResult);
 		
 		// 에러가 있다면
-		if(bindingResult.hasErrors()) {
+		if(check) {
 			return "member/join";
 		}
 		
 //		int result = memberService.join(memberVO, profile);
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("update")
+	public String update(HttpSession session, Model model) throws Exception {
+		MemberVO memberVO = (MemberVO)session.getAttribute("member");
+		
+		model.addAttribute("memberVO", memberVO);
+		return "member/memberUpdate";
+	}
+	
+	@PostMapping("update")
+	// @Valid와 @Validated 두 어노테이션 비교
+	// UpdateGroup으로 지정된 클래스만 사용하겠다
+	public String update(@Validated(UpdateGroup.class) MemberVO memberVO,BindingResult bindingResult, MultipartFile profile, HttpSession session) throws Exception {
+		
+		if(bindingResult.hasErrors()) {
+			return "member/memberUpdate";
+		}
+		
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		memberVO.setUsername(member.getUsername());
+		
+		int result = memberService.update(memberVO);
+		
+		if(result > 0) {
+			memberVO.setPassword(member.getPassword());
+			memberVO = memberService.login(memberVO);
+			session.setAttribute("member", memberVO);
+		}
+		
+		return "redirect:./detail";
 	}
 
 	@GetMapping("login")

@@ -29,10 +29,10 @@ public interface BoardService {
 	// file detail
 	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception;
 	
-	//
+	// boardFile
 	public String boardFile(MultipartFile multipartFile) throws Exception;
 	
-	//
+	// boardFileDelete
 	public boolean boardFileDelete(String fileName) throws Exception;
 	
 }
