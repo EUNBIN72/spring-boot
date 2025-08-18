@@ -47,7 +47,16 @@ public class MemberService {
 		// 입력한 비밀번호가 같지 않으면 ture를
 		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;
-			bindingResult.rejectValue("passwordCheck", );
+			bindingResult.rejectValue("passwordCheck", "member.password.notEqual");
+		}
+		
+		// 3. ID 중복 검사
+		MemberVO result = memberDAO.login(memberVO);
+		
+		// result가 null이 아니라면 ID가 중복임
+		if (result != null) {
+			check = true;
+			bindingResult.rejectValue("username", "member.id.equal");
 		}
 		
 		// 같으면 check를 리턴
