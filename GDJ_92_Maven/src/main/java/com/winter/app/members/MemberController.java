@@ -64,10 +64,22 @@ public class MemberController {
 	@PostMapping("update")
 	// @Valid와 @Validated 두 어노테이션 비교
 	// UpdateGroup으로 지정된 클래스만 사용하겠다
-	public String update(@Validated(UpdateGroup.class) MemberVO memberVO,BindingResult bindingResult, MultipartFile profile) throws Exception {
+	public String update(@Validated(UpdateGroup.class) MemberVO memberVO,BindingResult bindingResult, MultipartFile profile, HttpSession session) throws Exception {
 		
 		if(bindingResult.hasErrors()) {
 			return "member/memberUpdate";
+		}
+		
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		memberVO.setUsername(member.getUsername());
+		
+		int result = memberService.update(memberVO);
+		
+		if(result > 0) {
+			memberVO.setPassword(member.getPassword());
+			memberVO = memberService.login(memberVO);
+			session.setAttribute("member", memberVO);
 		}
 		
 		return "redirect:./detail";

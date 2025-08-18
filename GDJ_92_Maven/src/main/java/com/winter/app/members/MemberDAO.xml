@@ -45,6 +45,12 @@
  		VALUES (#{username}, (SELECT ROLE_NUM FROM ROLE WHERE ROLE_NAME='ROLE_MEMBER'))
  	</insert>
  	
+ 	<update id="update" parameterType="MemberVO">
+ 		UPDATE MEMBERS
+ 		SET name = #{name}, email = #{email}, phone = #{phone}, birth = #{birth}
+ 		WHERE username = #{username}
+ 	</update>
+ 	
  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
  		SELECT M.*,p.*, R.* FROM MEMBERS M
  		INNER JOIN PROFILE P USING(USERNAME) 

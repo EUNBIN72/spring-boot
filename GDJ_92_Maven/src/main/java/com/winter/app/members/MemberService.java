@@ -102,6 +102,10 @@ public class MemberService {
 		
 	}
 	
+	public int update(MemberVO memberVO) throws Exception {
+		return memberDAO.update(memberVO);
+	}
+	
 	
 	public int cartAdd(Map<String, Object> map) throws Exception {
 		return memberDAO.cartAdd(map);
