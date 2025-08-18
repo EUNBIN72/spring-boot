@@ -38,6 +38,7 @@ public class MemberController {
 	
 	@PostMapping("join")
 	// AddGroup으로 지정된 클래스만 사용하겠다
+	// @Validated를 쓰고 검증 그룹을 지정하지 않으면 검증 그룹이 없는 것들만 검증함
 	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
 		
 		boolean check = memberService.hasMemberError(memberVO, bindingResult);
