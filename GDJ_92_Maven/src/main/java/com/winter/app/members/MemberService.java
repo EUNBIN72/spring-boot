@@ -47,7 +47,7 @@ public class MemberService {
 		// 입력한 비밀번호가 같지 않으면 ture를
 		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;
-			//bindingResult.rejectValue("passwordCheck", );
+			bindingResult.rejectValue("passwordCheck", );
 		}
 		
 		// 같으면 check를 리턴
