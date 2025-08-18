@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,15 +25,16 @@
 					
 					<div class="row justify-content-center">
 						<div class="col-md-6">
-						<form method="post" enctype="multipart/form-data">
-							<input type="hidden" name="boardNum" value="${vo.boardNum }">						
+						<form:form method="post" modelAttribute="boardVO" enctype="multipart/form-data">
+							<form:hidden path="boardNum" />
 							<div class="mb-3">
 								<!-- 작성자는 직접 입력하는 것이 아니라 로그인 세션에서 정보를 가져와서 출력함 -->
 								<span>${member.username }</span>
 							</div>
 							<div class="mb-3">
 							  <label for="title" class="form-label">Title</label>
-							  <input type="text" class="form-control" name="boardTitle" value="${vo.boardTitle }">
+							  <form:input path="boardTitle" cssClass="form-control"/>
+							  <form:errors path="boardTitle"></form:errors>
 							</div>
 							<div class="mb-3">
 							  <label for="contents" class="form-label">Contents</label>
@@ -61,7 +63,7 @@
 								<!-- a 태그를 버튼처럼 보이게 만들어줌 -->
 								<button type="submit" class="btn btn-outline-primary">submit</button>
 							</div>
-						</form>
+						</form:form>
 						</div>
 					</div>
 				</div>

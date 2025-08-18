@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
@@ -30,6 +31,28 @@ public class MemberService {
 	
 	@Value("${board.member}")
 	private String board;
+	
+	// 검증 메서드
+	// 입력한 비번 두개가 같은지 검사
+	public boolean hasMemberError(MemberVO memberVO, BindingResult bindingResult) throws Exception {
+		
+		boolean check = false;
+		// check 값이 true이면 검증실패
+		// check 값이 false이면 검증통과
+		
+		// 1. Annotation 검증
+		check = bindingResult.hasErrors();
+		
+		// 2. 사용자 정의로 패스워드가 일치하는지 검사
+		// 입력한 비밀번호가 같지 않으면 ture를
+		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
+			check = true;
+			//bindingResult.rejectValue("passwordCheck", );
+		}
+		
+		// 같으면 check를 리턴
+		return check;
+	}
 	
 	@Autowired
 	private Transaction transaction;

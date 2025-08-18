@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.winter.app.products.ProductVO;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/member/*")
@@ -27,13 +29,21 @@ public class MemberController {
 	
 	
 	@GetMapping("join")
-	public void join() throws Exception {
+	public void join(MemberVO memberVO) throws Exception {
 		
 	}
 	
 	@PostMapping("join")
-	public String join(MemberVO memberVO, MultipartFile profile) throws Exception {
-		int result = memberService.join(memberVO, profile);
+	public String join(@Valid MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
+		
+		boolean check = memberService.hasMemberError(memberVO, bindingResult);
+		
+		// 에러가 있다면
+		if(bindingResult.hasErrors()) {
+			return "member/join";
+		}
+		
+//		int result = memberService.join(memberVO, profile);
 		
 		return "redirect:/";
 	}
