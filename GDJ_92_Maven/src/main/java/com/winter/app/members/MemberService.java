@@ -33,6 +33,7 @@ public class MemberService {
 	private String board;
 	
 	// 검증 메서드
+	// 이미 사용중인 아이디인지 검사
 	// 입력한 비번 두개가 같은지 검사
 	public boolean hasMemberError(MemberVO memberVO, BindingResult bindingResult) throws Exception {
 		
@@ -44,7 +45,7 @@ public class MemberService {
 		check = bindingResult.hasErrors();
 		
 		// 2. 사용자 정의로 패스워드가 일치하는지 검사
-		// 입력한 비밀번호가 같지 않으면 ture를
+		// 입력한 비밀번호가 같지 않으면 true를
 		if(!memberVO.getPassword().equals(memberVO.getPasswordCheck())) {
 			check = true;
 			bindingResult.rejectValue("passwordCheck", "member.password.notEqual");
@@ -62,9 +63,7 @@ public class MemberService {
 		// 같으면 check를 리턴
 		return check;
 	}
-	
-	@Autowired
-	private Transaction transaction;
+
 	
 	public int join(MemberVO memberVO, MultipartFile profile) throws Exception {
 		int result = memberDAO.join(memberVO);
