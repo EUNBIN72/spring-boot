@@ -10,9 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig {
 	
 	// 정적자원들을 Security에서 제외
-	@Bean
-	WebSecurityCustomizer customizer() {
-		
-	}
+//	@Bean
+//	WebSecurityCustomizer customizer() {
+//		
+//	}
 
 }
