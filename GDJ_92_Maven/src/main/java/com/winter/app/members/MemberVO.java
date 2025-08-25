@@ -1,7 +1,13 @@
 package com.winter.app.members;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.winter.app.members.update.UpdateGroup;
 import com.winter.app.members.validation.AddGroup;
@@ -18,7 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberVO {	
+public class MemberVO implements UserDetails {	
 	
 	// (message  = "") : error 메세지를 직접 정해줄 수 있음
 	// (groups = {} ) : 사용할 그룹에서만 사용(배열이면 {}안에, 하나면 그냥 작성)
@@ -47,6 +53,18 @@ public class MemberVO {
 	// 1대1
 	private ProfileVO profileVO;
 	
-	private List<RoleVO> roleVOs; 
+	private List<RoleVO> roleVOs;
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		List<GrantedAuthority> list = new ArrayList<>();
+		
+		for (RoleVO roleVO : roleVOs) {
+			list.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+		}
+		
+		return list;
+	} 
+
+	
 }

@@ -38,20 +38,22 @@ public class MemberController {
 	// @Validated를 쓰고 검증 그룹을 지정하지 않으면 그룹이 없는 것들만 검증함
 	// BindingResult : 매개변수 위치 중요 / MVC에서 폼 입력값 검증(Validation) 결과를 담는 객체
 	// 반드시 @Validated 또는 @Valid가 붙은 객체 바로 뒤에 선언해야 됨 -> 해당 객체의 결과가 bindingResult에 바인딩 됨
-	@PostMapping("join")
-	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
-		
-		boolean check = memberService.hasMemberError(memberVO, bindingResult);
-		
-		// 에러가 있다면
-		if(check) {
-			return "member/join";
-		}
-		
-		int result = memberService.join(memberVO, profile);
-		
-		return "redirect:/";
-	}
+	
+	// config사용해서 여기서 사용 안함
+//	@PostMapping("join")
+//	public String join(@Validated({AddGroup.class, UpdateGroup.class}) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
+//		
+//		boolean check = memberService.hasMemberError(memberVO, bindingResult);
+//		
+//		// 에러가 있다면
+//		if(check) {
+//			return "member/join";
+//		}
+//		
+//		int result = memberService.join(memberVO, profile);
+//		
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("update")
 	public String update(HttpSession session, Model model) throws Exception {
