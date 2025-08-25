@@ -50,7 +50,12 @@
  		SET name = #{name}, email = #{email}, phone = #{phone}, birth = #{birth}
  		WHERE username = #{username}
  	</update>
- 	
+
+	<update id="passwordUpdate" parameterType="MemberVO">
+		UPDATE MEMBERS SET PASSWORD = #{password}
+		WHERE USERNAME = #{username}
+	</update>
+
  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
  		SELECT M.*,p.*, R.* FROM MEMBERS M
  		INNER JOIN PROFILE P USING(USERNAME) 

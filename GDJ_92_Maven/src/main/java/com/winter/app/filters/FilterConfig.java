@@ -24,14 +24,18 @@ public class FilterConfig implements WebMvcConfigurer {
 	}
 	
 //	@Bean
-	FilterRegistrationBean<Filter> adminCheckFilter() {
-		// 객체 생성
-		FilterRegistrationBean<Filter> fr = new FilterRegistrationBean<>();
-		
-		fr.setFilter(new AdminCheckFilter());
-		fr.addUrlPatterns("/notice/add", "/notice/update", "/notice/delete");
-		fr.setOrder(1);
-		return fr;
-	}
+//	FilterRegistrationBean<Filter> adminCheckFilter() {
+//		// 객체 생성
+//		FilterRegistrationBean<Filter> fr = new FilterRegistrationBean<>();
+//		
+//		fr.setFilter(new AdminCheckFilter());
+//		fr.addUrlPatterns("/notice/add", "/notice/update", "/notice/delete");
+//		fr.setOrder(1);
+//		return fr;
+//	}
+	
+	
+	
+// 로그인 관련된 필터 주석처리(삭제해도 됨) -> SecurityConfig에서 처리했기 때문에 이제 필요 없음
 
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,14 +24,18 @@
 					<h3>
 						<spring:message code="welcome.message2" text="hi"></spring:message>
 					</h3>
+					
 					<!-- 로그인이 되면 -->
-					<c:if test="${not empty member }">
-						<h3>${member.name }님 환영합니다.</h3>
+					<sec:authorize access="isAutheticeated()">
+						<h3>Add Github</h3>
+						<h3><sec:authentication property="name"/></h3>
 						<h3>
+							<sec:authentication property="principal" var="vo"/>
+							${vo.username }, ${vo.email }
 							<spring:message code="user.info" arguments="${member.username}, ${member.email}" argumentSeparator=","/>
 						</h3>
-					</c:if>
-					
+					</sec:authorize>
+						
 					
 				</div>
 			</div>

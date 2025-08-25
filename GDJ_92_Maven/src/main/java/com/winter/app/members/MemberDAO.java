@@ -42,4 +42,7 @@ public interface MemberDAO {
 	// account insert
 	public int insertAccount() throws Exception;
 	
+	// 비밀번호 update
+	public int passwordUpdate(MemberVO memberVO) throws Exception;
+	
 }

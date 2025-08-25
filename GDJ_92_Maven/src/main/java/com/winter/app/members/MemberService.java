@@ -7,18 +7,25 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
+import com.winter.app.home.HomeController;
 import com.winter.app.products.ProductVO;
 import com.winter.app.transaction.Transaction;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class MemberService {
+public class MemberService implements UserDetailsService {
+
+    private final HomeController homeController;
 	
 	@Autowired
 	private MemberDAO memberDAO;
@@ -31,6 +38,29 @@ public class MemberService {
 	
 	@Value("${board.member}")
 	private String board;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+    MemberService(HomeController homeController) {
+        this.homeController = homeController;
+    }
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(username);
+		System.out.println("로그인 서비스");
+		try {
+			memberVO = memberDAO.login(memberVO);
+			return memberVO;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	// 검증 메서드
 	// 이미 사용중인 아이디인지 검사
@@ -66,6 +96,8 @@ public class MemberService {
 
 	
 	public int join(MemberVO memberVO, MultipartFile profile) throws Exception {
+		// 암호화된 비밀번호로
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		int result = memberDAO.join(memberVO);
 		
 		ProfileVO profileVO = new ProfileVO();
@@ -90,18 +122,19 @@ public class MemberService {
 		
 	}
 	
-	public MemberVO login(MemberVO memberVO) throws Exception {
-		MemberVO checkVO = memberDAO.login(memberVO);
-
-		if(checkVO != null && memberVO.getPassword().equals(checkVO.getPassword())) {
-			return checkVO;
-		}
-		
-		return null;
-		
-	}
+//	public MemberVO login(MemberVO memberVO) throws Exception {
+//		MemberVO checkVO = memberDAO.login(memberVO);
+//
+//		if(checkVO != null && memberVO.getPassword().equals(checkVO.getPassword())) {
+//			return checkVO;
+//		}
+//		
+//		return null;
+//		
+//	}
 	
 	public int update(MemberVO memberVO) throws Exception {
+		passwordEncoder.matches(memberVO.getPassword(), passwordEncoder.encode("test1"));
 		return memberDAO.update(memberVO);
 	}
 	
