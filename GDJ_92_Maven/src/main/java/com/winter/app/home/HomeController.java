@@ -21,25 +21,25 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String home(HttpSession session) {
-		Enumeration<String> keys = session.getAttributeNames();
-		
-		while(keys.hasMoreElements()) {
-			log.info("key : {}", keys.nextElement());
-		}
-		
-		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
-		log.info("{}", obj.getClass().getName());
-		
-		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
-		
-		Authentication authentication = contextImpl.getAuthentication();
-		
-		log.info("Auth : {}", authentication);
-		
-		// ------------------------------------------------
-		authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		MemberVO memberVO =  (MemberVO)authentication.getPrincipal();
+//		Enumeration<String> keys = session.getAttributeNames();
+//		
+//		while(keys.hasMoreElements()) {
+//			log.info("key : {}", keys.nextElement());
+//		}
+//		
+//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		log.info("{}", obj.getClass().getName());
+//		
+//		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+//		
+//		Authentication authentication = contextImpl.getAuthentication();
+//		
+//		log.info("Auth : {}", authentication);
+//		
+//		// ------------------------------------------------
+//		authentication = SecurityContextHolder.getContext().getAuthentication();
+//		
+//		MemberVO memberVO =  (MemberVO)authentication.getPrincipal();
 		return "index";
 	}
 	

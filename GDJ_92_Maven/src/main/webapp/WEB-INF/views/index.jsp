@@ -26,7 +26,7 @@
 					</h3>
 					
 					<!-- 로그인이 되면 -->
-					<sec:authorize access="isAutheticeated()">
+					<sec:authorize access="isAuthenticated()">
 						<h3>Add Github</h3>
 						<h3><sec:authentication property="name"/></h3>
 						<h3>

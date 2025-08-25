@@ -102,13 +102,15 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+
+	// security가 대신함
 	
-	@GetMapping("logout")
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+//	@GetMapping("logout")
+//	public String logout(HttpSession session) throws Exception {
+//		session.invalidate();
+//		
+//		return "redirect:/";
+//	}
 	
 	// profile
 	@GetMapping("detail")

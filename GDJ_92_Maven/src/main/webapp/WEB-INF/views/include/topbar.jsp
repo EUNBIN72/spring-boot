@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>	
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>	
 <!-- Topbar -->
 <nav
 	class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -25,7 +26,7 @@
 			</div>
 		</div>
 	</form>
-<c:if test="${not empty member}">
+<sec:authorize access="isAuthenticated()">
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
 
@@ -192,9 +193,9 @@
 			</div></li>
 
 	</ul>
-</c:if>
+</sec:authorize>
 
-<c:if test="${empty member}">
+<sec:authorize access="!isAuthenticated()">
 	<ul class="navbar-nav ml-auto">
 	<li class="nav-item mx-2">
 		<a href="/member/login">Login</a>
@@ -202,8 +203,8 @@
 	
 		<li class="nav-item dropdown no-arrow mx-2"><a href="/member/join">Join</a></li>
 	</ul>
+</sec:authorize>
 
-</c:if>
 	<ul>
 		<li><a href="/?lang=ko">KO</a></li>
 		<li><a href="/?lang=en">EN</a></li>
