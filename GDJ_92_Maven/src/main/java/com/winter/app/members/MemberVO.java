@@ -55,6 +55,9 @@ public class MemberVO implements UserDetails {
 	
 	private List<RoleVO> roleVOs;
 
+	// UserDetails 인터페이스를 구현할 때 쓰이는 권한(Authorities)반환기능
+	// 로그인한 사용자가 가지고 있는 권한 (ROLE_XXX)을 GrantedAuthority 형태로 변환해서 Spring Security에게 넘겨줌
+	// Spring Security는 이 정보를 기반으로 인가(Autorization), "어떤 URL이나 기능에 접근할 수 있는가"를 판단
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> list = new ArrayList<>();
