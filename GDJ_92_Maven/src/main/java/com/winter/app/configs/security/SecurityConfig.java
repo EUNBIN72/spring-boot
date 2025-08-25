@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.util.AntPathMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -42,7 +43,7 @@ public class SecurityConfig {
 					.anyRequest().permitAll()
 					;
 			})
-			// form에 관련된  설정
+			// form에 관련된 설정
 			.formLogin(form->{
 				form
 					// 로그인관련
@@ -52,6 +53,17 @@ public class SecurityConfig {
 					.defaultSuccessUrl("/")
 					.failureUrl("/member/login")
 					;
+			})
+			
+			// logout 설정
+			.logout((logout)-> {
+				logout
+					.logoutUrl("/member/logout")
+//					.logoutRequestMatcher(new AntPathMatcher("/member/logout"))
+					.invalidateHttpSession(true)
+					.deleteCookies("JSESSIONID")
+					.logoutSuccessUrl("/");
+					
 			})
 			;
 		

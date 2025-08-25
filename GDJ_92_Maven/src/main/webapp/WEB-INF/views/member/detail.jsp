@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +24,13 @@
 						<div>
 						<img class="img-profile rounded-circle"	src="/files/member/${member.profileVO.saveName }">
 						</div>
-						<div>${member.username }</div>
-						<span>${member.email }</span>
+						<div>
+							<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal" var="vo"/>
+								${vo.username }
+						</div>
+						<span>${vo.email }</span>
+							</sec:authorize>
 					</div>
 					
 					
