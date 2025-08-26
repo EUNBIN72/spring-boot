@@ -1,5 +1,6 @@
 package com.winter.app.configs.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,9 @@ import org.springframework.util.AntPathMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	private LoginSuccessHandler loginSuccessHandler;
 	
 	// 정적자원들을 Security에서 제외
 	@Bean
@@ -36,7 +40,8 @@ public class SecurityConfig {
 			// 권한에 관련된 설정
 			.authorizeHttpRequests(auth -> {
 				auth
-					.requestMatchers("/notice/add", "/notice/update", "/notice/delete").hasRole("ADMIN")
+					// 어떤 URL이 왔을 때 어떻게 제어할 것인가
+					.requestMatchers("/notice/add", "/notice/update", "/notice/delete").hasRole("ADMIN")  // ROLE
 					.requestMatchers("/products/add", "/products/update", "/products/delete").hasAnyRole("MANAGER", "ADMIN")
 //					.requestMatchers("/member/detail", "/member/lgout", "/member/update", "/member/delete").access("hasRole('ROLE_MEMBER') or hasRole('ROLE_MANAGER')")
 					.requestMatchers("/member/detail", "/member/logout", "/member/update", "/member/delete").authenticated()
@@ -44,21 +49,24 @@ public class SecurityConfig {
 					;
 			})
 			// form에 관련된 설정
+			// 개발자가 로그인 검증을 하지 않음, Security Filter에서 검증
 			.formLogin(form->{
 				form
 					// 로그인관련
 					.loginPage("/member/login")
 //					.usernameParameter("username")
 //					.passwordParameter("password")
-					.defaultSuccessUrl("/")
-					.failureUrl("/member/login")
+//					.defaultSuccessUrl("/")  // 인증에 성공한 후 요청할 URL(개발자가 생성) / redirect
+//					.successForwardUrl(null) // foward
+					.successHandler(loginSuccessHandler)
+					.failureUrl("/member/login") // 인증에 실패한 후 요청할 URL(개발자가 생성)
 					;
 			})
 			
 			// logout 설정
 			.logout((logout)-> {
 				logout
-					.logoutUrl("/member/logout")
+					.logoutUrl("/member/logout") // 로그아웃 URL 주소 변경 가능(Controller 처리 X)
 //					.logoutRequestMatcher(new AntPathMatcher("/member/logout"))
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
