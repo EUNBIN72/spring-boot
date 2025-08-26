@@ -16,7 +16,7 @@ public interface MemberDAO {
 	// 프로필 profileInsert
 	public int profileInsert(ProfileVO profileVO) throws Exception;
 	
-	
+	// update
 	public int update(MemberVO memberVO) throws Exception;
 
 	//

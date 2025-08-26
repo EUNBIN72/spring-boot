@@ -14,15 +14,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+// AuthenticationSuccessHandler : 로그인 성공 시 실행할 로직을 구현하는 인터페이스
 
-	// 로그인이 성공했을 때 실행
+	// 로그인이 성공했을 때 Spring Security가 자동으로 호출
+	// request : 로그인 요청 정보
+	// response : 응답 객체(리다이렉트, 쿠키 설정 가능)
+	// authentication : 로그인 성공한 사용자 정보(아이디, 권한 등)
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
 
 		// 서블릿을 한정적으로 사용
+		//로그인 폼에서 "아이디 저장" 체크박스(name="rememberId") 값을 가져옴
 		String rememberId = request.getParameter("rememberId");
 		
+		// 값이 "1"이면 체크된 상태, null이면 체크 해제
 		if(rememberId != null && rememberId.equals("1")) {
 			// 쿠키 객체 생성(Key/Value 형태)
 			Cookie cookie = new Cookie("rememberId", authentication.getName());

@@ -88,8 +88,15 @@ public class MemberController {
 		return "redirect:./detail";
 	}
 
+	// 로그인이 안 된 사용자에게는 로그인 화면을 보여주고,
+	// 이미 로그인한 사용자라면 홈 화면으로 보내서 불필요하게 로그인 폼을 다시 보지 않도록 하는 기능
 	@GetMapping("login")
+	// 로그인 성공 후에 principal 안에 로그인한 사용자 정보(아이디, 세션 정보 등(가 담기고, 로그인하지 않은 상태라면 null이 반환
 	public String login(Principal principal) throws Exception{
+		
+		// 로그인이 안 된 사용자 : /login -> principal == null -> "member/login" 뷰 반환 -> 로그인 폼 출력
+		// 로그인 된 사용자 : /login -> principal != null -> redirect:/ -> 홈 화면으로 이동
+		
 		if(principal != null) {
 			return "redirect:/";
 		}
