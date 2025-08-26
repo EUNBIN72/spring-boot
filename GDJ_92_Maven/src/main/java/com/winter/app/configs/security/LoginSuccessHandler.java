@@ -25,13 +25,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		if(rememberId != null && rememberId.equals("1")) {
 			// 쿠키 객체 생성(Key/Value 형태)
-			Cookie cookie = new Cookie("", "");
+			Cookie cookie = new Cookie("rememberId", authentication.getName());
 			// 쿠키 유지 시간 설정(초 단위)
-			cookie.setMaxAge(30 * 60); // 30분 유지
+			cookie.setMaxAge(60 * 60); // 1시간 유지
+			// cookie가 사용 가능한 URL
+			cookie.setPath("/");
 			// 응답에 쿠키 추가(브라우저에 전달)
 			response.addCookie(cookie);
-			
-		}
+		} 
 		
 		
 		log.info(rememberId);

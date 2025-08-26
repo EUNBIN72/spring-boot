@@ -21,7 +21,7 @@
 					<form method="post" enctype="multipart/form-data">
 						<div class="mb-3">
 						    <label for="id" class="form-label">ID</label>
-						    <input type="text" class="form-control" name="username">
+						    <input type="text" value="${cookie.rememberId.value }" class="form-control" name="username">
 						  </div>
 						  <div class="mb-3">
 						    <label for="password" class="form-label">Password</label>

@@ -41,8 +41,6 @@
                         <a class="collapse-item" href="/notice/list">Notice</a>
                         <a class="collapse-item" href="/products/list">Product</a>
                         <a class="collapse-item" href="/qna/list">QNA</a>
-                        <a class="collapse-item" href="/member/join">Join</a>
-                        <a class="collapse-item" href="/member/login">login</a>
                     </div>
                 </div>
             </li>
