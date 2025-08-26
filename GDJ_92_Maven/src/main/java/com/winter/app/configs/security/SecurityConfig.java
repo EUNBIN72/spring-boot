@@ -109,7 +109,18 @@ public class SecurityConfig {
 					.key("rememberkey")
 					.userDetailsService(memberService)
 					.authenticationSuccessHandler(loginSuccessHandler)
-					.useSecureCookie(false)
+					.useSecureCookie(true)
+					;
+			})
+			
+			
+			// 이중 사용 방지
+			.sessionManagement((s)->{
+				s
+					.invalidSessionUrl("/member/login")
+					.maximumSessions(1)  // -1 : 무한대
+					.maxSessionsPreventsLogin(true)  // false : 이전 사용자 X // true : 현재 접속 사용자 X
+					.expiredUrl("/")
 					;
 			})
 			;
