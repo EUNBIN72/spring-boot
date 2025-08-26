@@ -32,7 +32,17 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			cookie.setPath("/");
 			// 응답에 쿠키 추가(브라우저에 전달)
 			response.addCookie(cookie);
-		} 
+		} else {
+			Cookie[] cookies =request.getCookies();
+			for(Cookie cookie : cookies) {
+				if(cookie.getName().equals("rememberId" )) {
+					cookie.setMaxAge(0);
+					cookie.setPath("/");
+					response.addCookie(cookie);
+					break;
+				}
+			}
+		}
 		
 		
 		log.info(rememberId);

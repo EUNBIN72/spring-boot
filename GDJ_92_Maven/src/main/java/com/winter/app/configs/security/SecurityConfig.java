@@ -7,14 +7,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.AntPathMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    private final AddLogoutSuccessHandler addLogoutSuccessHandler;
 	
 	@Autowired
 	private LoginSuccessHandler loginSuccessHandler;
+	
+	@Autowired
+	private LoginFailHandler loginFailHandler;
+	
+	@Autowired
+	private AddLogoutHandler addLogoutHandler;
+	
+	@Autowired
+	private LogoutSuccessHandler logoutSuccessHandler;
+
+    SecurityConfig(AddLogoutSuccessHandler addLogoutSuccessHandler) {
+        this.addLogoutSuccessHandler = addLogoutSuccessHandler;
+    }
 	
 	// 정적자원들을 Security에서 제외
 	@Bean
@@ -59,7 +76,8 @@ public class SecurityConfig {
 //					.defaultSuccessUrl("/")  // 인증에 성공한 후 요청할 URL(개발자가 생성) / redirect
 //					.successForwardUrl(null) // foward
 					.successHandler(loginSuccessHandler)
-					.failureUrl("/member/login") // 인증에 실패한 후 요청할 URL(개발자가 생성)
+//					.failureUrl("/member/login") // 인증에 실패한 후 요청할 URL(개발자가 생성)
+					.failureHandler(loginFailHandler)
 					;
 			})
 			
@@ -67,10 +85,14 @@ public class SecurityConfig {
 			.logout((logout)-> {
 				logout
 					.logoutUrl("/member/logout") // 로그아웃 URL 주소 변경 가능(Controller 처리 X)
+					.addLogoutHandler(addLogoutHandler)
+					.logoutSuccessHandler(addLogoutSuccessHandler)
+//					.logoutSuccessHandler(null)
 //					.logoutRequestMatcher(new AntPathMatcher("/member/logout"))
 					.invalidateHttpSession(true)
 					.deleteCookies("JSESSIONID")
-					.logoutSuccessUrl("/");
+//					.logoutSuccessUrl("/")
+					;
 					
 			})
 			;
