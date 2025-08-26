@@ -32,6 +32,10 @@
 						  <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" name="rememberId">
 						  <label class="form-check-label" for="exampleCheck1">ID 기억하기</label>
 						</div>
+						<div class="mb-3 form-check">
+						  <input type="checkbox" class="form-check-input" id="exampleCheck1" value="1" name="remember-me">
+						  <label class="form-check-label" for="exampleCheck1">자동 로그인</label>
+						</div>
 					    <button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>

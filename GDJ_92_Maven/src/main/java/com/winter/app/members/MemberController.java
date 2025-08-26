@@ -1,5 +1,6 @@
 package com.winter.app.members;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,8 +89,11 @@ public class MemberController {
 	}
 
 	@GetMapping("login")
-	public void login() throws Exception{
-		
+	public String login(Principal principal) throws Exception{
+		if(principal != null) {
+			return "redirect:/";
+		}
+		return "member/login";
 	}
 	
 	@PostMapping("login")

@@ -11,6 +11,8 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.AntPathMatcher;
 
+import com.winter.app.members.MemberService;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -28,6 +30,9 @@ public class SecurityConfig {
 	
 	@Autowired
 	private LogoutSuccessHandler logoutSuccessHandler;
+	
+	@Autowired
+	private MemberService memberService;
 
     SecurityConfig(AddLogoutSuccessHandler addLogoutSuccessHandler) {
         this.addLogoutSuccessHandler = addLogoutSuccessHandler;
@@ -94,6 +99,18 @@ public class SecurityConfig {
 //					.logoutSuccessUrl("/")
 					;
 					
+			})
+			
+			// 자동 로그인
+			.rememberMe((remember)-> {
+				remember
+					.rememberMeParameter("remember-me")
+					.tokenValiditySeconds(60)  // 초단위
+					.key("rememberkey")
+					.userDetailsService(memberService)
+					.authenticationSuccessHandler(loginSuccessHandler)
+					.useSecureCookie(false)
+					;
 			})
 			;
 		
