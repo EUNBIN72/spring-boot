@@ -177,7 +177,7 @@
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="userDropdown">
 				<a class="dropdown-item" href="/member/detail"> <i
-					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> My Page
 				</a> <a class="dropdown-item" href="/member/cartList"> <i
 					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 장바구니
 				</a> <a class="dropdown-item" href="#"> <i
@@ -188,7 +188,7 @@
 				<a class="dropdown-item" href="#" data-toggle="modal"
 					data-target="#logoutModal"> <i
 					class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-					Logout
+					로그아웃
 				</a>
 			</div></li>
 

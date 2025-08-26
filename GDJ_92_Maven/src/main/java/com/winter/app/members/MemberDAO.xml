@@ -13,7 +13,7 @@
  		<result column="PHONE" property="phone"/>
  		<result column="BIRTH" property="birth"/>
  		<result column="ACCOUNT_NON_EXPIRED" property="accountNonExpired"/>
- 		<result column="ACCOUNT_NON_LOCKED" property="accountNonLoked"/>
+ 		<result column="ACCOUNT_NON_LOCKED" property="accountNonLocked"/>
  		<result column="CREDENTIALS_NON_EXPIRED" property="credentialsNonExpired"/>
  		<result column="ENABLED" property="enabled"/>
  		
@@ -57,7 +57,7 @@
 	</update>
 
  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
- 		SELECT M.*,p.*, R.* FROM MEMBERS M
+ 		SELECT M.*,P.*, R.* FROM MEMBERS M
  		INNER JOIN PROFILE P USING(USERNAME) 
  		INNER JOIN MEMBER_ROLE MR USING(USERNAME) 
  		INNER JOIN ROLE R USING(ROLE_NUM) 

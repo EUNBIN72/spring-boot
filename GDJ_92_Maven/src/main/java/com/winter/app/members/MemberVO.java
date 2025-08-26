@@ -46,7 +46,7 @@ public class MemberVO implements UserDetails {
 	@Past(groups = {AddGroup.class, UpdateGroup.class})  // 과거의 날짜만 가능(반대로 미래의 날짜는 @Future - 예: 예약날짜 등등)
 	private LocalDate birth;
 	private boolean accountNonExpired;
-	private boolean accountNonLoked;
+	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	private boolean enabled;
 	
@@ -54,6 +54,7 @@ public class MemberVO implements UserDetails {
 	private ProfileVO profileVO;
 	
 	private List<RoleVO> roleVOs;
+
 
 	// UserDetails 인터페이스를 구현할 때 쓰이는 권한(Authorities)반환기능
 	// 로그인한 사용자가 가지고 있는 권한 (ROLE_XXX)을 GrantedAuthority 형태로 변환해서 Spring Security에게 넘겨줌
