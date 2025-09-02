@@ -148,7 +148,27 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-oauth2-client</artifactId>
 		</dependency>
-		</dependencies>
+		<!-- JWT(Json Web Token)을 생성하고 검증하기 위해 사용 -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-api</artifactId>
+		     <version>0.13.0</version>
+		</dependency>
+		<!-- jjwt-api 구현체(JWT를 서명하거나 파싱하는 내부 로직이 들어있음) -->		
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-impl</artifactId>
+		     <version>0.13.0</version>
+		    <scope>runtime</scope>
+		</dependency>
+		<!-- Java 객체 ↔ JSON 간 변환이 가능 -->
+		<dependency>
+		    <groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt-jackson</artifactId>
+		    <version>0.13.0</version>
+		    <scope>runtime</scope>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>

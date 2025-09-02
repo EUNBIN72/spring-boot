@@ -48,6 +48,7 @@ public class MemberService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUsername(username);
 		System.out.println("로그인 서비스");
